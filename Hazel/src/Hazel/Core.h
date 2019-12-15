@@ -8,5 +8,4 @@
 	#endif
 #else
 	#error Hazel only supports windows!
-
 #endif
