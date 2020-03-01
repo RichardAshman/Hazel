@@ -1,6 +1,5 @@
 #pragma once
 //https://github.com/gabime/spdlog
-#include <memory>
 
 #include "Core.h"
 #include "spdlog/spdlog.h"

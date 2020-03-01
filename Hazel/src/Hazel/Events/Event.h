@@ -2,9 +2,6 @@
 
 #include "Hazel/Core.h"
 
-#include <string>
-#include <functional>
-
 namespace Hazel {
 	/*
 	Events in Hazel are currently blocking, meaning when an event occurs it
@@ -19,17 +16,17 @@ namespace Hazel {
 		WindowClose, WindowResize, WindowFocus, WindowLostFocus, WindowMoved,
 		AppTick, AppUpdate, AppRender,
 		KeyPressed, KeyReleased,
-		MouseButtonPressed, MouseButtonReleased, MosueMoved, MosuesScrolled
+		MouseButtonPressed, MouseButtonReleased, MouseMoved, MouseScrolled
 	};
 
 	enum EventCategory
 	{
 		None = 0,
 		EventCategoryApplication	= BIT(0),
-		EvnetCatogoryInput			= BIT(1),
-		EvnetCatogoryKeyboard		= BIT(2),
-		EvnetCatogoryMouse			= BIT(3),
-		EvnetCatogoryMouseButton	= BIT(4)
+		EventCategoryInput			= BIT(1),
+		EventCategoryKeyboard		= BIT(2),
+		EventCategoryMouse			= BIT(3),
+		EventCategoryMouseButton	= BIT(4)
 	};
 
 #define EVENT_CLASS_TYPE(type) static EventType GetStaticType() { return EventType::##type; }\

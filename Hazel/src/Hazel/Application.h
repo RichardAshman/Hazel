@@ -1,7 +1,9 @@
 #pragma once
 
 #include "Core.h"
-#include "Events/Event.h"
+#include "Window.h"
+#include "Hazel/Events/ApplicationEvent.h"
+//#include "Events/Event.h"
 
 namespace Hazel {
 
@@ -11,6 +13,12 @@ namespace Hazel {
 		Application();
 		virtual ~Application();
 		void Run();
+		void OnEvent(Event& e);
+	private:
+		bool OnWindowClose(WindowCloseEvent& e);
+
+		std::unique_ptr<Window> m_Window;
+		bool m_Running = true;
 	};
 
 	// To be defined in client
