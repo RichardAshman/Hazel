@@ -8,6 +8,8 @@
 #include "Events/Event.h"
 
 #include "Hazel/ImGui/ImGuiLayer.h"
+//temp
+#include "Hazel/Renderer/Shader.h" 
 
 namespace Hazel {
 
@@ -34,6 +36,8 @@ namespace Hazel {
 
 		// First triangle
 		unsigned int m_VertexArray, m_VertexBuffer, m_IndexBuffer;
+		// First Shader
+		std::unique_ptr<Shader> m_Shader;
 
 	private:
 		static Application* s_Instance;
