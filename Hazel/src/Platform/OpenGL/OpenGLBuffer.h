@@ -28,8 +28,8 @@ namespace Hazel
 		OpenGLIndexBuffer(uint32_t* indices, uint32_t count);
 		virtual ~OpenGLIndexBuffer();
 
-		virtual void Bind() const override;
-		virtual void Unbind() const override;
+		virtual void Bind() const;
+		virtual void Unbind() const;
 
 		virtual uint32_t GetCount() const {return m_Count;}
 
