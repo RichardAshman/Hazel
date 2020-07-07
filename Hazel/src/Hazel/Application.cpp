@@ -2,7 +2,7 @@
 #include "Application.h"
 
 #include "Hazel/Log.h"
-#include "glad/glad.h"
+#include "Hazel\Renderer\Renderer.h"
 
 #include "Input.h"
 
@@ -133,18 +133,16 @@ namespace Hazel {
 		m_BlueShader.reset(new Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	Application::~Application()
-	{
-	}
-
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
+		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
@@ -168,24 +166,37 @@ namespace Hazel {
 	{
 		while (m_Running)
 		{
-			glClearColor(0.1f, 0.1f, 0.1f, 1);
-			glClear(GL_COLOR_BUFFER_BIT);
+			RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
+			RenderCommand::Clear();
+
+			//Renderer::BeginScene(camera, lights, environment);
+			Renderer::BeginScene();
+
+			m_BlueShader->Bind();
+			Renderer::Submit(m_SquareVA);
+
+			m_Shader->Bind();
+			Renderer::Submit(m_VertexArray);
+
+			Renderer::EndScene();
+			//Renderer::Flush();// For when using multi thread
+			
 
 			//Square draw
-			m_BlueShader->Bind();
-			m_SquareVA->Bind();
-			glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			//m_BlueShader->Bind();
+			//m_SquareVA->Bind();
+			//glDrawElements(GL_TRIANGLES, m_SquareVA->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
 
 
 
 			// first shader
-			m_Shader->Bind();
-			// End first shader
+			//m_Shader->Bind();
+			//// End first shader
 
-			// First Triangle
-			m_VertexArray->Bind();
-			glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
-			// End first Triangle
+			//// First Triangle
+			//m_VertexArray->Bind();
+			//glDrawElements(GL_TRIANGLES, m_VertexArray->GetIndexBuffer()->GetCount(), GL_UNSIGNED_INT, nullptr);
+			//// End first Triangle
 
 			for (Layer* layer : m_LayerStack)
 			{
