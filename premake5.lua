@@ -23,7 +23,7 @@ group "Dependencies"
 	include "Hazel/vendor/Glad"
 	include "Hazel/vendor/imgui"
 	
-Group ""
+--Group ""
 
 project "Hazel"
 	location "Hazel"

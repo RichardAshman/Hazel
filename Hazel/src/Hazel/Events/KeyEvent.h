@@ -68,7 +68,7 @@ namespace Hazel {
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)
-	private:
-		int m_RepeatCount;
+	//private:
+	//	int m_RepeatCount;
 	};
 }

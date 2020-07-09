@@ -4,13 +4,14 @@
 #include "imgui.h"
 #include "examples/imgui_impl_glfw.h"
 #include "examples/imgui_impl_opengl3.h"
-
 #include "Hazel/Application.h"
 
 #include "Hazel/Log.h"
 //TEMP
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
+
+//#include "Platform/OpenGL/ImGuiOpenGLRenderer.h"
 
 namespace Hazel {
 	ImGuiLayer::ImGuiLayer()
@@ -25,8 +26,18 @@ namespace Hazel {
 		ImGui::CreateContext();
 
 		ImGuiIO& io = ImGui::GetIO(); (void)io;
+
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;		// Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;		// Enable Gamepad Controls
+		// nb: ImGuiConfigFlags_DockingEnable will not work by default. May need to do two things to fix the issue
+		// 1) Need to Uncomment the line #define IMGUI_API __declspec( dllexport ) in imconfig.h so that ImGui exports all of its symbols.
+		// 2) Check if the imgui submodule has been switched to docking rather than master with the command
+		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git status
+		//		if it is set to master then change it to docking with the following commands
+		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git checkout docking
+		//		C:\Dev\Hazel\Hazel\Vendor>git status
+		//		C:\Dev\Hazel\Hazel\Vendor>git add imgui
+		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;			// Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;			// Enable Multi-viewport / Platform Windows
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
@@ -104,7 +115,7 @@ namespace Hazel {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());*/
 	}
-/*
+/*Comment1 start*/
 	void ImGuiLayer::OnEvent(Event & event)
 	{
 		EventDispatcher dispatcher(event);
@@ -114,7 +125,7 @@ namespace Hazel {
 		dispatcher.Dispatch<MouseScrolledEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnMouseScrolledEvent));
 		dispatcher.Dispatch<KeyPressedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyPressedEvent));
 		dispatcher.Dispatch<KeyReleasedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyReleasedEvent));
-		dispatcher.Dispatch<KeyTypedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
+		//dispatcher.Dispatch<KeyTypedEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnKeyTypedEvent));
 		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(ImGuiLayer::OnWindowResizeEvent));
 	}
 
@@ -163,7 +174,8 @@ namespace Hazel {
 		ImGuiIO& io = ImGui::GetIO();
 		io.KeysDown[e.GetKeyCode()] = false;
 		return false;
-	}*/
+	}
+	/*Comment1 End*/
 	void ImGuiLayer::End()
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -182,7 +194,8 @@ namespace Hazel {
 			glfwMakeContextCurrent(backup_current_context);
 		}
 	}
-/*
+
+	/*Comment2 start*/
 	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent & e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -202,7 +215,8 @@ namespace Hazel {
 		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 
 		return false;
-	}*/
+	}
+	/*Comment2 end*/
 
 	void ImGuiLayer::OnImGuiRender()
 	{

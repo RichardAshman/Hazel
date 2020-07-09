@@ -171,13 +171,13 @@ public:
 		//if (!event.Handled) {
 		//	HZ_TRACE("{0}", event);
 		//}
-		//if (event.GetEventType() == Hazel::EventType::KeyPressed)
-		//{
-		//	Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
-		//	if (e.GetKeyCode() == HZ_KEY_TAB)
-		//		HZ_TRACE("Tab key is pressed (event)!");
-		//	HZ_TRACE("{0}", (char)e.GetKeyCode());
-		//}
+		if (event.GetEventType() == Hazel::EventType::KeyPressed)
+		{
+			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
+			if (e.GetKeyCode() == HZ_KEY_TAB)
+				HZ_TRACE("Tab key is pressed (event)!");
+			HZ_TRACE("{0}", (char)e.GetKeyCode());
+		}
 	}
 	bool OnkeyPressedEvent(Hazel::KeyPressedEvent& event)
 	{
@@ -218,7 +218,7 @@ class Sandbox : public Hazel::Application
 public: 
 	Sandbox()
 	{
-		//PushLayer(new ExampleLayer());
+		PushLayer(new ExampleLayer());
 	}
 	~Sandbox()
 	{
