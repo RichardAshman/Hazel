@@ -16,13 +16,12 @@ namespace Hazel {
 
 		virtual void OnAttach() override;
 		virtual void OnDetach() override;
-		//virtual void OnUpdate() override;
 		virtual void OnImGuiRender() override;
 
 		void Begin();
 		void End();
 
-		/*comment starts*/
+		/*comment starts*//*
 		void OnEvent(Event& event);
 	private:
 		bool OnMouseButtonPressedEvent(MouseButtonPressedEvent& e);
@@ -33,7 +32,7 @@ namespace Hazel {
 		bool OnKeyReleasedEvent(KeyReleasedEvent& e);
 		bool OnKeyTypedEvent(KeyTypedEvent& e);
 		bool OnWindowResizeEvent(WindowResizeEvent& e);
-		/*comment ends*/
+		*//*comment ends*/
 	private:
 		float m_Time = 0.0f;
 	};

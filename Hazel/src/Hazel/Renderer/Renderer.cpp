@@ -2,7 +2,7 @@
 #include "Renderer.h"
 
 namespace Hazel {
-	//RendererAPI Renderer::s_RendererAPI = RendererAPI::OpenGL;
+
 	Renderer::SceneData* Renderer::s_SceneData = new Renderer::SceneData;
 
 	void Renderer::BeginScene(OrthographicCamera& camera)

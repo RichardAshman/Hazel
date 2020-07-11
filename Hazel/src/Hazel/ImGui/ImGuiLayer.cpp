@@ -29,15 +29,15 @@ namespace Hazel {
 
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;		// Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;		// Enable Gamepad Controls
-		// nb: ImGuiConfigFlags_DockingEnable will not work by default. May need to do two things to fix the issue
-		// 1) Need to Uncomment the line #define IMGUI_API __declspec( dllexport ) in imconfig.h so that ImGui exports all of its symbols.
-		// 2) Check if the imgui submodule has been switched to docking rather than master with the command
-		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git status
-		//		if it is set to master then change it to docking with the following commands
-		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git checkout docking
-		//		C:\Dev\Hazel\Hazel\Vendor>git status
-		//		C:\Dev\Hazel\Hazel\Vendor>git add imgui
-		//		C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
+			// nb: ImGuiConfigFlags_DockingEnable will not work by default. May need to do two things to fix the issue
+			// 1) Need to Uncomment the line #define IMGUI_API __declspec( dllexport ) in imconfig.h so that ImGui exports all of its symbols.
+			// 2) Check if the imgui submodule has been switched to docking rather than master with the command
+			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git status
+			//		if it is set to master then change it to docking with the following commands
+			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git checkout docking
+			//		C:\Dev\Hazel\Hazel\Vendor>git status
+			//		C:\Dev\Hazel\Hazel\Vendor>git add imgui
+			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;			// Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;			// Enable Multi-viewport / Platform Windows
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
@@ -46,33 +46,7 @@ namespace Hazel {
 		// Setup Dear ImGui style
 		ImGui::StyleColorsDark();
 		// ImGui::StyleColorsClassic();
-
-		//ImGuiIO& io = ImGui::GetIO();
-		//io.BackendFlags |= ImGuiBackendFlags_HasMouseCursors;
-		//io.BackendFlags |= ImGuiBackendFlags_HasSetMousePos;
-		//// TEMPORARY: should eventually use Hazel key codes
-		//io.KeyMap[ImGuiKey_Tab] = GLFW_KEY_TAB;
-		//io.KeyMap[ImGuiKey_LeftArrow] = GLFW_KEY_LEFT;
-		//io.KeyMap[ImGuiKey_RightArrow] = GLFW_KEY_RIGHT;
-		//io.KeyMap[ImGuiKey_UpArrow] = GLFW_KEY_UP;
-		//io.KeyMap[ImGuiKey_DownArrow] = GLFW_KEY_DOWN;
-		//io.KeyMap[ImGuiKey_PageUp] = GLFW_KEY_PAGE_UP;
-		//io.KeyMap[ImGuiKey_PageDown] = GLFW_KEY_PAGE_DOWN;
-		//io.KeyMap[ImGuiKey_Home] = GLFW_KEY_HOME;
-		//io.KeyMap[ImGuiKey_End] = GLFW_KEY_END;
-		//io.KeyMap[ImGuiKey_Insert] = GLFW_KEY_INSERT;
-		//io.KeyMap[ImGuiKey_Delete] = GLFW_KEY_DELETE;
-		//io.KeyMap[ImGuiKey_Backspace] = GLFW_KEY_BACKSPACE;
-		//io.KeyMap[ImGuiKey_Space] = GLFW_KEY_SPACE;
-		//io.KeyMap[ImGuiKey_Enter] = GLFW_KEY_ENTER;
-		//io.KeyMap[ImGuiKey_Escape] = GLFW_KEY_ESCAPE;
-		//io.KeyMap[ImGuiKey_A] = GLFW_KEY_A;
-		//io.KeyMap[ImGuiKey_C] = GLFW_KEY_C;
-		//io.KeyMap[ImGuiKey_V] = GLFW_KEY_V;
-		//io.KeyMap[ImGuiKey_X] = GLFW_KEY_X;
-		//io.KeyMap[ImGuiKey_Y] = GLFW_KEY_Y;
-		//io.KeyMap[ImGuiKey_Z] = GLFW_KEY_Z;
-
+		
 		// When viwports are enabled we tweak WindowRounding/WindowBg so platform windows can look identical ro regular ones.
 		ImGuiStyle& style = ImGui::GetStyle();
 		if (io.ConfigFlags & ImGuiConfigFlags_ViewportsEnable)
@@ -101,6 +75,7 @@ namespace Hazel {
 		//Application& app = Application::Get();
 		//io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
 
+		////Moved to Application.cpp
 		//float time = (float)glfwGetTime();
 		//io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
 		//m_Time = time;
@@ -115,7 +90,7 @@ namespace Hazel {
 		ImGui::Render();
 		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());*/
 	}
-/*Comment1 start*/
+/*Comment1 start*//*
 	void ImGuiLayer::OnEvent(Event & event)
 	{
 		EventDispatcher dispatcher(event);
@@ -174,7 +149,7 @@ namespace Hazel {
 		ImGuiIO& io = ImGui::GetIO();
 		io.KeysDown[e.GetKeyCode()] = false;
 		return false;
-	}
+	}*/
 	/*Comment1 End*/
 	void ImGuiLayer::End()
 	{
@@ -195,7 +170,7 @@ namespace Hazel {
 		}
 	}
 
-	/*Comment2 start*/
+	/*Comment2 start*//*
 	bool ImGuiLayer::OnKeyTypedEvent(KeyTypedEvent & e)
 	{
 		ImGuiIO& io = ImGui::GetIO();
@@ -215,7 +190,7 @@ namespace Hazel {
 		glViewport(0, 0, e.GetWidth(), e.GetHeight());
 
 		return false;
-	}
+	}*/
 	/*Comment2 end*/
 
 	void ImGuiLayer::OnImGuiRender()

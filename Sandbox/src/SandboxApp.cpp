@@ -125,12 +125,39 @@ public:
 	void OnUpdate() override
 	{
 
+		if (Hazel::Input::IsKeyPressed(HZ_KEY_LEFT))
+		{
+			m_CameraPosition.x -= m_CameraSpeed;
+		}
+		else if (Hazel::Input::IsKeyPressed(HZ_KEY_RIGHT))
+		{
+			m_CameraPosition.x += m_CameraSpeed;
+		}
+
+		if (Hazel::Input::IsKeyPressed(HZ_KEY_UP))
+		{
+			m_CameraPosition.y += m_CameraSpeed;
+		}
+		else if (Hazel::Input::IsKeyPressed(HZ_KEY_DOWN))
+		{
+			m_CameraPosition.y -= m_CameraSpeed;
+		}
+
+		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
+		{
+			m_CameraRotation += m_CameraRotationSpeed;
+		}
+		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
+		{
+			m_CameraRotation -= m_CameraRotationSpeed;
+		}
+
 
 		Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Hazel::RenderCommand::Clear();
 
 		m_Camera.SetPosition(m_CameraPosition);// { 0.5f, 0.5f, 0.0f });
-		m_Camera.SetRotation(0.0f);
+		m_Camera.SetRotation(m_CameraRotation);
 		//Renderer::BeginScene(camera, lights, environment); // TODO take these
 		Hazel::Renderer::BeginScene(m_Camera);
 
@@ -163,43 +190,46 @@ public:
 	}
 	void OnEvent(Hazel::Event& event) override
 	{
-		Hazel::EventDispatcher dispatcher(event);
+		/*Hazel::EventDispatcher dispatcher(event);
 		dispatcher.Dispatch<Hazel::KeyPressedEvent>(HZ_BIND_EVENT_FN(ExampleLayer::OnkeyPressedEvent));
-
+*/
 
 
 		//if (!event.Handled) {
 		//	HZ_TRACE("{0}", event);
 		//}
-		if (event.GetEventType() == Hazel::EventType::KeyPressed)
-		{
-			Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
-			if (e.GetKeyCode() == HZ_KEY_TAB)
-				HZ_TRACE("Tab key is pressed (event)!");
-			HZ_TRACE("{0}", (char)e.GetKeyCode());
-		}
-	}
-	bool OnkeyPressedEvent(Hazel::KeyPressedEvent& event)
-	{
-		if (event.GetKeyCode() == HZ_KEY_LEFT)
-		{
-			m_CameraPosition.x -= m_CameraSpeed;
-		}
-		if (event.GetKeyCode() == HZ_KEY_RIGHT)
-		{
-			m_CameraPosition.x += m_CameraSpeed;
-		}
-		if (event.GetKeyCode() == HZ_KEY_UP)
-		{
-			m_CameraPosition.y += m_CameraSpeed;
-		}
-		if (event.GetKeyCode() == HZ_KEY_DOWN)
-		{
-			m_CameraPosition.y -= m_CameraSpeed;
-		}
 
-		return false;
+
+		//if (event.GetEventType() == Hazel::EventType::KeyPressed)
+		//{
+		//	Hazel::KeyPressedEvent& e = (Hazel::KeyPressedEvent&)event;
+		//	if (e.GetKeyCode() == HZ_KEY_TAB)
+		//		HZ_TRACE("Tab key is pressed (event)!");
+		//	HZ_TRACE("{0}", (char)e.GetKeyCode());
+		//}
 	}
+
+	//bool OnkeyPressedEvent(Hazel::KeyPressedEvent& event)
+	//{
+	//	if (event.GetKeyCode() == HZ_KEY_LEFT)
+	//	{
+	//		m_CameraPosition.x -= m_CameraSpeed;
+	//	}
+	//	if (event.GetKeyCode() == HZ_KEY_RIGHT)
+	//	{
+	//		m_CameraPosition.x += m_CameraSpeed;
+	//	}
+	//	if (event.GetKeyCode() == HZ_KEY_UP)
+	//	{
+	//		m_CameraPosition.y += m_CameraSpeed;
+	//	}
+	//	if (event.GetKeyCode() == HZ_KEY_DOWN)
+	//	{
+	//		m_CameraPosition.y -= m_CameraSpeed;
+	//	}
+
+	//	return false;
+	//}
 private:
 
 	std::shared_ptr<Hazel::Shader> m_Shader;
@@ -211,6 +241,8 @@ private:
 	Hazel::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
 	float m_CameraSpeed = 0.1f;
+	float m_CameraRotation = 0.0f;
+	float m_CameraRotationSpeed = 2.0f;
 };
 
 class Sandbox : public Hazel::Application

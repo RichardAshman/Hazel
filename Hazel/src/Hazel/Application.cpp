@@ -29,13 +29,13 @@ namespace Hazel {
 	void Application::PushLayer(Layer* layer)
 	{
 		m_LayerStack.PushLayer(layer);
-		layer->OnAttach();
+		//layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
 		m_LayerStack.PushOverlay(overlay);
-		overlay->OnAttach();
+		//overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
@@ -59,9 +59,13 @@ namespace Hazel {
 	{
 		while (m_Running)
 		{
+			//float time = (float)glfwGetTime();
+			//Timestep timestep = time - m_LastFrameTime;// m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
+			//m_LastFrameTime = time;
+
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate();
+				layer->OnUpdate(/*timestep*/);
 			}
 
 			m_ImGuiLayer->Begin();

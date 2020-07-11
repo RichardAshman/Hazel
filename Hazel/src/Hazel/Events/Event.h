@@ -1,5 +1,6 @@
 #pragma once
 
+#include "hzpch.h"
 #include "Hazel/Core.h"
 
 namespace Hazel {
@@ -37,11 +38,11 @@ namespace Hazel {
 
 	class HAZEL_API Event
 	{
-		friend class EventDispatcher;
+		//friend class EventDispatcher;
 	public:
 		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
-		virtual const char* GetName() const = 0; // This should only be used in debugging. change this and GetCategoryFlags
+		virtual const char* GetName() const = 0; // This should only be used in debugging. Change this and GetCategoryFlags
 		virtual int GetCategoryFlags() const = 0;
 		virtual std::string ToString() const { return GetName(); }
 

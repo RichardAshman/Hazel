@@ -59,7 +59,6 @@ namespace Hazel {
 		KeyTypedEvent(int keycode)
 			: KeyEvent(keycode) {}
 
-
 		std::string ToString() const override
 		{
 			std::stringstream ss;
@@ -68,7 +67,5 @@ namespace Hazel {
 		}
 
 		EVENT_CLASS_TYPE(KeyTyped)
-	//private:
-	//	int m_RepeatCount;
 	};
 }

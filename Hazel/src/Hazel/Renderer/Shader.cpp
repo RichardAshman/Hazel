@@ -43,7 +43,7 @@ namespace Hazel {
 
 		// Send the fragment shader source code to GL
 		// Note that std::string's .c_str is NULL character terminated.
-		source = (const GLchar *)fragmentSrc.c_str();
+		source = /*(const GLchar *)*/fragmentSrc.c_str();
 		glShaderSource(fragmentShader, 1, &source, 0);
 
 		// Compile the fragment shader
@@ -127,6 +127,6 @@ namespace Hazel {
 	void Shader::UploadUniformMat4(const std::string& name, const glm::mat4 & matrix)
 	{
 		GLint location = glGetUniformLocation(m_RendererID, name.c_str());
-		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)); //f = float, v = array
+		glUniformMatrix4fv(location, 1, GL_FALSE, glm::value_ptr(matrix)); //f = float, v = array (vector?)
 	}
 }

@@ -7,14 +7,6 @@
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Events/Event.h"
 
-//#include "Hazel/ImGui/ImGuiLayer.h"
-
-//#include "Hazel/Renderer/Shader.h" 
-//#include "Hazel/Renderer/Buffer.h" 
-//#include "Hazel/Renderer/VertexArray.h"
-
-//#include "Hazel/OrthographicCamera.h"
-
 #include "Hazel/ImGui/ImGuiLayer.h"
 
 namespace Hazel {
