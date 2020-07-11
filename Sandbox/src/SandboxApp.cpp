@@ -122,34 +122,33 @@ public:
 		m_BlueShader.reset(new Hazel::Shader(blueShaderVertexSrc, blueShaderFragmentSrc));
 	}
 
-	void OnUpdate() override
+	void OnUpdate(Hazel::Timestep ts) override
 	{
-
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_LEFT))
 		{
-			m_CameraPosition.x -= m_CameraSpeed;
+			m_CameraPosition.x -= m_CameraSpeed * ts;
 		}
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_RIGHT))
 		{
-			m_CameraPosition.x += m_CameraSpeed;
+			m_CameraPosition.x += m_CameraSpeed * ts;
 		}
 
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_UP))
 		{
-			m_CameraPosition.y += m_CameraSpeed;
+			m_CameraPosition.y += m_CameraSpeed * ts;
 		}
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_DOWN))
 		{
-			m_CameraPosition.y -= m_CameraSpeed;
+			m_CameraPosition.y -= m_CameraSpeed * ts;
 		}
 
 		if (Hazel::Input::IsKeyPressed(HZ_KEY_A))
 		{
-			m_CameraRotation += m_CameraRotationSpeed;
+			m_CameraRotation += m_CameraRotationSpeed * ts;
 		}
 		else if (Hazel::Input::IsKeyPressed(HZ_KEY_D))
 		{
-			m_CameraRotation -= m_CameraRotationSpeed;
+			m_CameraRotation -= m_CameraRotationSpeed * ts;
 		}
 
 
@@ -209,27 +208,6 @@ public:
 		//}
 	}
 
-	//bool OnkeyPressedEvent(Hazel::KeyPressedEvent& event)
-	//{
-	//	if (event.GetKeyCode() == HZ_KEY_LEFT)
-	//	{
-	//		m_CameraPosition.x -= m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == HZ_KEY_RIGHT)
-	//	{
-	//		m_CameraPosition.x += m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == HZ_KEY_UP)
-	//	{
-	//		m_CameraPosition.y += m_CameraSpeed;
-	//	}
-	//	if (event.GetKeyCode() == HZ_KEY_DOWN)
-	//	{
-	//		m_CameraPosition.y -= m_CameraSpeed;
-	//	}
-
-	//	return false;
-	//}
 private:
 
 	std::shared_ptr<Hazel::Shader> m_Shader;
@@ -240,9 +218,9 @@ private:
 
 	Hazel::OrthographicCamera m_Camera;
 	glm::vec3 m_CameraPosition;
-	float m_CameraSpeed = 0.1f;
+	float m_CameraSpeed = 1.0f;
 	float m_CameraRotation = 0.0f;
-	float m_CameraRotationSpeed = 2.0f;
+	float m_CameraRotationSpeed = 15.0f;
 };
 
 class Sandbox : public Hazel::Application

@@ -59,13 +59,13 @@ namespace Hazel {
 	{
 		while (m_Running)
 		{
-			//float time = (float)glfwGetTime();
-			//Timestep timestep = time - m_LastFrameTime;// m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-			//m_LastFrameTime = time;
+			float time = (float)glfwGetTime(); //TEMP remove the ref to glfw. Will need to do this in per platform. Platform::GetTime();
+			Timestep timestep = time - m_LastFrameTime;
+			m_LastFrameTime = time;
 
 			for (Layer* layer : m_LayerStack)
 			{
-				layer->OnUpdate(/*timestep*/);
+				layer->OnUpdate(timestep);
 			}
 
 			m_ImGuiLayer->Begin();
