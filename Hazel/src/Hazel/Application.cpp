@@ -2,11 +2,11 @@
 #include "Application.h"
 
 #include "Hazel/Log.h"
-#include "Hazel\Renderer\Renderer.h"
+#include "Hazel/Renderer/Renderer.h"
 
 #include "Input.h"
 
-#include <GLFW\glfw3.h>
+#include <GLFW/glfw3.h>
 
 namespace Hazel {
 
@@ -71,7 +71,7 @@ namespace Hazel {
 			m_ImGuiLayer->Begin();
 			for (Layer* layer : m_LayerStack)
 			{
-				m_ImGuiLayer->OnImGuiRender();
+				layer->OnImGuiRender();
 			}
 			m_ImGuiLayer->End();
 

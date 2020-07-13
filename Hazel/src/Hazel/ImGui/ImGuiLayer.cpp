@@ -29,15 +29,19 @@ namespace Hazel {
 
 		io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;		// Enable Keyboard Controls
 		//io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;		// Enable Gamepad Controls
-			// nb: ImGuiConfigFlags_DockingEnable will not work by default. May need to do two things to fix the issue
-			// 1) Need to Uncomment the line #define IMGUI_API __declspec( dllexport ) in imconfig.h so that ImGui exports all of its symbols.
-			// 2) Check if the imgui submodule has been switched to docking rather than master with the command
-			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git status
-			//		if it is set to master then change it to docking with the following commands
-			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git checkout docking
-			//		C:\Dev\Hazel\Hazel\Vendor>git status
-			//		C:\Dev\Hazel\Hazel\Vendor>git add imgui
-			//		C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
+			
+	        /*
+			nb: ImGuiConfigFlags_DockingEnable will not work by default. May need to do two things to fix the issue
+			 1) Need to Uncomment the line #define IMGUI_API __declspec( dllexport ) in imconfig.h so that ImGui exports all of its symbols.
+			 2) Check if the imgui submodule has been switched to docking rather than master with the command
+					C:\Dev\Hazel\Hazel\Vendor\imgui>git status
+					if it is set to master then change it to docking with the following commands
+					C:\Dev\Hazel\Hazel\Vendor\imgui>git checkout docking
+					C:\Dev\Hazel\Hazel\Vendor>git status
+					C:\Dev\Hazel\Hazel\Vendor>git add imgui
+					C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
+			*/
+
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;			// Enable Docking
 		io.ConfigFlags |= ImGuiConfigFlags_ViewportsEnable;			// Enable Multi-viewport / Platform Windows
 		//io.ConfigFlags |= ImGuiConfigFlags_ViewportsNoTaskBarIcons;
@@ -71,24 +75,9 @@ namespace Hazel {
 
 	void ImGuiLayer::Begin()
 	{
-		//ImGuiIO& io = ImGui::GetIO();
-		//Application& app = Application::Get();
-		//io.DisplaySize = ImVec2(app.GetWindow().GetWidth(), app.GetWindow().GetHeight());
-
-		////Moved to Application.cpp
-		//float time = (float)glfwGetTime();
-		//io.DeltaTime = m_Time > 0.0f ? (time - m_Time) : (1.0f / 60.0f);
-		//m_Time = time;
-
 		ImGui_ImplOpenGL3_NewFrame();
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
-/*
-		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
-
-		ImGui::Render();
-		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());*/
 	}
 /*Comment1 start*//*
 	void ImGuiLayer::OnEvent(Event & event)
@@ -196,7 +185,7 @@ namespace Hazel {
 	void ImGuiLayer::OnImGuiRender()
 	{
 		static bool show = true;
-		ImGui::ShowDemoWindow(&show);
+		//ImGui::ShowDemoWindow(&show);
 	}
 
 }
