@@ -97,6 +97,8 @@ public:
 		m_Shader.reset(Hazel::Shader::Create(vertexSrc, fragmentSrc));
 
 
+		Hazel::Shader::Create("assets/shaders/Texture.glsl");
+
 		std::string flatColorShaderVertexSrc = R"(
 			#version 330 core
 
@@ -134,41 +136,42 @@ public:
 
 
 
-		// texture shader
+		//// texture shader
 
-		std::string textureShaderVertexSrc = R"(
-			#version 330 core
+		//std::string textureShaderVertexSrc = R"(
+		//	#version 330 core
 
-			layout(location = 0) in vec3 a_Position;
-			layout(location = 1) in vec2 a_Texture;
+		//	layout(location = 0) in vec3 a_Position;
+		//	layout(location = 1) in vec2 a_Texture;
 
-			uniform mat4 u_ViewProjection;
-			uniform mat4 u_Transform;
+		//	uniform mat4 u_ViewProjection;
+		//	uniform mat4 u_Transform;
 
-			out vec2 v_Texture;
+		//	out vec2 v_Texture;
 
-			void main()
-			{
-				v_Texture = a_Texture;
-				gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-			} 
-		)";
-		std::string textureShaderFragmentSrc = R"(
-			#version 330 core
+		//	void main()
+		//	{
+		//		v_Texture = a_Texture;
+		//		gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
+		//	} 
+		//)";
+		//std::string textureShaderFragmentSrc = R"(
+		//	#version 330 core
 
-			layout(location = 0) out vec4 color;
+		//	layout(location = 0) out vec4 color;
 
-			in vec2 v_Texture;
+		//	in vec2 v_Texture;
 
-			uniform sampler2D u_Texture;
+		//	uniform sampler2D u_Texture;
 
-			void main()
-			{
-				color = texture(u_Texture, v_Texture);
-			}
-		)";
+		//	void main()
+		//	{
+		//		color = texture(u_Texture, v_Texture);
+		//	}
+		//)";
 
-		m_TextureShader.reset(Hazel::Shader::Create(textureShaderVertexSrc, textureShaderFragmentSrc));
+		//Shader::Create("assets/shaders/Texture.glsl");
+		m_TextureShader.reset(Hazel::Shader::Create("assets/shaders/Texture.glsl"));
 
 		m_Texture = Hazel::Texture2D::Create("assets/textures/Rand.png");
 		m_Texture2 = Hazel::Texture2D::Create("assets/textures/Rand2.png");
