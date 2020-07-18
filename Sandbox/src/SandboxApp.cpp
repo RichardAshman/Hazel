@@ -11,7 +11,7 @@
 class ExampleLayer : public Hazel::Layer {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_CameraController(1280.0f / 720.0f, false)
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f, false) // TODO add max and min zoom into args for camera creation
 	{
 		m_VertexArray.reset(Hazel::VertexArray::Create());
 
