@@ -1,5 +1,5 @@
 #pragma once
-#include "Renderer/OrthographicCamera.h"
+#include "Hazel/Renderer/OrthographicCamera.h"
 #include "Hazel/Core/TimeStep.h"
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Events/MouseEvent.h"
@@ -25,12 +25,12 @@ namespace Hazel {
 	private:
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
-		float m_ZoomSpeed = 0.25f;
+		float m_ZoomSpeed = 0.05f;
 		OrthographicCamera m_Camera;
 
 		bool m_Rotation;
 		glm::vec3 m_CameraPosition = { 0.0f, 0.0f, 0.0f };
-		float m_CameraRotation = 0;
-		float m_CameraTranslationSpeed = 5.0f, m_CameraRotationSpeed = 180.0f;
+		float m_CameraRotation = 0; // In degrees, in the anti-clockwise direction
+		float m_CameraTranslationSpeed = 5.0f, m_CameraRotationSpeed = 90.0f;
 	};
 }

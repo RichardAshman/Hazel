@@ -1,7 +1,11 @@
-# Directories
-.vs/
-/bin/
+# Binaries
+**/bin/
+!vendor/bin/prmake/
 bin-int/
 
-#Files
-*.user
+# VS files and folders
+.vs/
+**.sln
+**.vcxproj
+**.vcxproj.filters
+**.vcxproj.user

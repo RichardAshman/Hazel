@@ -1,8 +1,8 @@
 #include "hzpch.h"
 #include "OrthographicCameraController.h"
 
-#include "Hazel/Input.h"
-#include "Hazel/KeyCodes.h"
+#include "Hazel/Core/Input.h"
+#include "Hazel/Core/KeyCodes.h"
 
 namespace Hazel {
 	OrthographicCameraController::OrthographicCameraController(float aspectRatio, bool rotation)
@@ -14,20 +14,24 @@ namespace Hazel {
 	{
 		if (Input::IsKeyPressed(HZ_KEY_A))
 		{
-			m_CameraPosition.x -= m_CameraTranslationSpeed * ts;
+			m_CameraPosition.x -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y -= sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		}
 		else if (Input::IsKeyPressed(HZ_KEY_D))
 		{
-			m_CameraPosition.x += m_CameraTranslationSpeed * ts;
+			m_CameraPosition.x += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y += sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		}
 
 		if (Input::IsKeyPressed(HZ_KEY_W))
 		{
-			m_CameraPosition.y += m_CameraTranslationSpeed * ts;
+			m_CameraPosition.x += -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y += cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		}
 		else if (Input::IsKeyPressed(HZ_KEY_S))
 		{
-			m_CameraPosition.y -= m_CameraTranslationSpeed * ts;
+			m_CameraPosition.x -= -sin(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
+			m_CameraPosition.y -= cos(glm::radians(m_CameraRotation)) * m_CameraTranslationSpeed * ts;
 		}
 		if (m_Rotation) 
 		{
@@ -38,6 +42,14 @@ namespace Hazel {
 			else if (Input::IsKeyPressed(HZ_KEY_E))
 			{
 				m_CameraRotation -= m_CameraRotationSpeed * ts;
+			}
+			if (m_CameraRotation > 180.0f)
+			{
+				m_CameraRotation -= 360.0f;
+			}
+			else if (m_CameraRotation <= -180.0f)
+			{
+				m_CameraRotation += 360.0f;
 			}
 			m_Camera.SetRotation(m_CameraRotation);
 		}
@@ -54,8 +66,8 @@ namespace Hazel {
 	bool OrthographicCameraController::OnMouseScrolled(MouseScrolledEvent & e)
 	{
 		m_ZoomLevel -= e.GetYOffset() * m_ZoomSpeed;
-		m_ZoomLevel = std::max(m_ZoomLevel, 0.25f); // stop user zooming in to far
-		m_ZoomLevel = std::min(m_ZoomLevel, 5.0f); // stop user zooming out to far
+		m_ZoomLevel = std::max(m_ZoomLevel, 0.5f); // stop user zooming in to far
+		m_ZoomLevel = std::min(m_ZoomLevel, 4.0f); // stop user zooming out to far
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
 	}

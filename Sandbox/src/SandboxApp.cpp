@@ -11,7 +11,7 @@
 class ExampleLayer : public Hazel::Layer {
 public:
 	ExampleLayer()
-		:Layer("Example"), m_CameraController(1280.0f / 720.0f, false) // TODO add max and min zoom into args for camera creation
+		:Layer("Example"), m_CameraController(1280.0f / 720.0f, true) // TODO add max and min zoom into args for camera creation
 	{
 		m_VertexArray.reset(Hazel::VertexArray::Create());
 
@@ -133,42 +133,6 @@ public:
 		m_FlatColorShader = Hazel::Shader::Create("FlatColor", flatColorShaderVertexSrc, flatColorShaderFragmentSrc);
 
 
-
-
-
-		//// texture shader
-
-		//std::string textureShaderVertexSrc = R"(
-		//	#version 330 core
-
-		//	layout(location = 0) in vec3 a_Position;
-		//	layout(location = 1) in vec2 a_Texture;
-
-		//	uniform mat4 u_ViewProjection;
-		//	uniform mat4 u_Transform;
-
-		//	out vec2 v_Texture;
-
-		//	void main()
-		//	{
-		//		v_Texture = a_Texture;
-		//		gl_Position = u_ViewProjection * u_Transform * vec4(a_Position, 1.0);
-		//	} 
-		//)";
-		//std::string textureShaderFragmentSrc = R"(
-		//	#version 330 core
-
-		//	layout(location = 0) out vec4 color;
-
-		//	in vec2 v_Texture;
-
-		//	uniform sampler2D u_Texture;
-
-		//	void main()
-		//	{
-		//		color = texture(u_Texture, v_Texture);
-		//	}
-		//)";
 		
 		auto textureShader = m_ShaderLibrary.Load("assets/shaders/Texture.glsl");
 
