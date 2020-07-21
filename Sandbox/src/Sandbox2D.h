@@ -23,6 +23,12 @@ private:
 
 	Hazel::Ref<Hazel::Texture2D> m_transparentTexture;
 
+	struct ProfileResult
+	{
+		const char* Name;
+		float Time;
+	};
+	std::vector<ProfileResult> m_ProfileResults;
 
 	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 1.0f, 1.0f};
 };
