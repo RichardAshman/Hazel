@@ -9,3 +9,9 @@ bin-int/
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+
+
+#misc
+Sandbox/HazelProfile-Runtime.json
+Sandbox/HazelProfile-Shutdown.json
+Sandbox/HazelProfile-Startup.json

@@ -73,6 +73,7 @@ namespace Hazel {
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const glm::vec4& color)
 	{
+		HZ_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", color);
 		s_Data->WhiteTexture->Bind();
 
@@ -88,6 +89,7 @@ namespace Hazel {
 	}
 	void Renderer2D::DrawQuad(const glm::vec3& position, const glm::vec2& size, const Ref<Texture2D>& texture)
 	{
+		HZ_PROFILE_FUNCTION();
 		s_Data->TextureShader->SetFloat4("u_Color", glm::vec4(1.0f)); // can times the glm by a color to get a tint of color over the image
 		// Can aslo set float for u_Scale for the textures scale
 		texture->Bind(); // defaults to index zero()

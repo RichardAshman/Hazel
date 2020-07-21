@@ -8,13 +8,17 @@ extern Hazel::Application* Hazel::CreateApplication();
 int main(int argc, char** argv)
 {
 	Hazel::Log::Init();
-	HZ_CORE_WARN("Initialized Log!");
-	int a = 5;
-	HZ_INFO("Hello! var={0}", a);
 
-
+	HZ_PROFILE_START("Startup", "HazelProfile-Startup.json");
 	auto app = Hazel::CreateApplication();
+	HZ_PROFILE_STOP();
+
+	HZ_PROFILE_START("Runtime", "HazelProfile-Runtime.json");
 	app->Run();
+	HZ_PROFILE_STOP();
+
+	HZ_PROFILE_START("Shutdown", "HazelProfile-Shutdown.json");
 	delete app;
+	HZ_PROFILE_STOP();
 }
 #endif
