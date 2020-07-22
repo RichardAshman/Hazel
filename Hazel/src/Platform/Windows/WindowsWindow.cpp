@@ -1,5 +1,5 @@
 #include "hzpch.h"
-#include "WindowsWindow.h"
+#include "Platform/Windows/WindowsWindow.h"
 
 #include "Hazel/Events/ApplicationEvent.h"
 #include "Hazel/Events/MouseEvent.h"
@@ -15,22 +15,28 @@ namespace Hazel {
 		HZ_CORE_ERROR("GLFW Error ({0}): {1}", error, description);
 	}
 
-	Window* Window::Create(const WindowProps& props)
+	Scope<Window> Window::Create(const WindowProps& props)
 	{
-		return new WindowsWindow(props);
+		return CreateScope<WindowsWindow>(props);
 	}
 
 	WindowsWindow::WindowsWindow(const WindowProps& props)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		Init(props);
 	}
 
 	WindowsWindow::~WindowsWindow()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		Shutdown();
 	}
 	void WindowsWindow::Init(const WindowProps& props)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		m_Data.Title = props.Title;
 		m_Data.Width = props.Width;
 		m_Data.Height = props.Height;
@@ -40,18 +46,20 @@ namespace Hazel {
 
 		if (s_GLFWWindowCount == 0)
 		{
-			HZ_CORE_INFO("Initializing GLFW");
+			HZ_PROFILE_SCOPE("HZ glfwInit");
 
 			int success = glfwInit();
 			HZ_CORE_ASSERT(success, "Could not initalize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
-		m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
-		++s_GLFWWindowCount;
+		{
+			HZ_PROFILE_SCOPE("HZ glfwCreateWidnow");
+			m_Window = glfwCreateWindow((int)props.Width, (int)props.Height, m_Data.Title.c_str(), nullptr, nullptr);
+			++s_GLFWWindowCount;
+		}
 
-		m_Context = CreateScope<OpenGLContext>(m_Window);
-
+		m_Context = GraphicsContext:: Create(m_Window);
 		m_Context->Init();
 
 		glfwSetWindowUserPointer(m_Window, &m_Data);
@@ -151,23 +159,28 @@ namespace Hazel {
 
 	void WindowsWindow::Shutdown()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		glfwDestroyWindow(m_Window);
-		s_GLFWWindowCount -= 1;
+		--s_GLFWWindowCount;
 		if (s_GLFWWindowCount == 0)
 		{
-			HZ_CORE_INFO("Terminating GLFW");
 			glfwTerminate();
 		}
 	}
 
 	void WindowsWindow::OnUpdate()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		glfwPollEvents();
 		m_Context->SwapBuffers();
 	}
 
 	void WindowsWindow::SetVSync(bool enabled)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		if (enabled)
 		{
 			glfwSwapInterval(1);

@@ -1,14 +1,13 @@
 #include "hzpch.h"
+
 #include "Sandbox2D.h"
-#include "imgui/imgui.h"
+#include <imgui/imgui.h>
 
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
 //Temp
 #include "Platform\OpenGL\OpenGLShader.h"
-
-
 
 
 Sandbox2D::Sandbox2D()
@@ -18,31 +17,32 @@ Sandbox2D::Sandbox2D()
 
 void Sandbox2D::OnAttach()
 {
+	HZ_PROFILE_FUNCTION();
+
 	m_transparentTexture = Hazel::Texture2D::Create("assets/textures/Rand.png");
 	//m_Texture = Hazel::Texture2D::Create("assets/textures/Rand2.png");
 }
 
 void Sandbox2D::OnDetach()
 {
+	HZ_PROFILE_FUNCTION();
+
 }
 
 void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 {
 	HZ_PROFILE_FUNCTION();
 	//Update
-	{
-		HZ_PROFILE_FUNCTION();
-		m_CameraController.OnUpdate(ts);
-	}
+	m_CameraController.OnUpdate(ts);
 	//Renderer
 	{
-		HZ_PROFILE_FUNCTION();
+		HZ_PROFILE_SCOPE("Renderer Prep");
 		Hazel::RenderCommand::SetClearColor({ 0.1f, 0.1f, 0.1f, 1 });
 		Hazel::RenderCommand::Clear();
 	}
 
 	{
-		HZ_PROFILE_FUNCTION();
+		HZ_PROFILE_SCOPE("Renderer Draw");
 		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
 		// position, size, color (rotation still needs to be added)
 		Hazel::Renderer2D::DrawQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });

@@ -1,50 +1,60 @@
 #include "hzpch.h"
-#include "Application.h"
+#include "Hazel/Core/Application.h"
 
 #include "Hazel/Core/Log.h"
 #include "Hazel/Renderer/Renderer.h"
 
-#include "Input.h"
+#include "Hazel/Core/Input.h"
 
 #include <GLFW/glfw3.h>
 
 namespace Hazel {
 
-#define BIND_EVENT_FN(x) std::bind(&Application::x, this, std::placeholders::_1)
-
 	Application* Application::s_Instance = nullptr;
 
 	Application::Application()
 		{
+		HZ_PROFILE_FUNCTION();
+
 		HZ_CORE_ASSERT(!s_Instance, "Application already exists!");
 		s_Instance = this;
 
-		m_Window = std::unique_ptr<Window>(Window::Create());
-		m_Window->SetEventCallback(BIND_EVENT_FN(OnEvent));
+		m_Window = Window::Create();
+		m_Window->SetEventCallback(HZ_BIND_EVENT_FN(Application::OnEvent));
 
 		Renderer::Init();
 
 		m_ImGuiLayer = new ImGuiLayer();
 		PushOverlay(m_ImGuiLayer);
 	}
+	Application::~Application()
+	{
+		Renderer::Shutdown();
+	}
 
 	void Application::PushLayer(Layer* layer)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		m_LayerStack.PushLayer(layer);
-		//layer->OnAttach();
+		layer->OnAttach();
 	}
 
 	void Application::PushOverlay(Layer* overlay)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		m_LayerStack.PushOverlay(overlay);
-		//overlay->OnAttach();
+		overlay->OnAttach();
 	}
 
 	void Application::OnEvent(Event& e)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		EventDispatcher dispatcher(e);
-		dispatcher.Dispatch<WindowCloseEvent> (BIND_EVENT_FN(OnWindowClose));
-		dispatcher.Dispatch<WindowResizeEvent>(BIND_EVENT_FN(OnWindowResize));
+		dispatcher.Dispatch<WindowCloseEvent> (HZ_BIND_EVENT_FN(Application::OnWindowClose));
+		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(Application::OnWindowResize));
 
 		HZ_CORE_TRACE("OnEvent 1 --> {0}", e);
 
@@ -60,6 +70,8 @@ namespace Hazel {
 
 	void Application::Run()
 	{
+		HZ_PROFILE_SCOPE("HZ Run Loop");
+
 		while (m_Running)
 		{
 			float time = (float)glfwGetTime(); //TEMP remove the ref to glfw. Will need to do this in per platform. Platform::GetTime();
@@ -67,17 +79,24 @@ namespace Hazel {
 			m_LastFrameTime = time;
 			if (!m_Minimized)
 			{
-				for (Layer* layer : m_LayerStack)
 				{
-					layer->OnUpdate(timestep);
+					HZ_PROFILE_SCOPE("LayerStack OnUpdate inside run loop");
+
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnUpdate(timestep);
+					}
 				}
+				m_ImGuiLayer->Begin();
+				{
+					HZ_PROFILE_SCOPE("LayerStack OnImGuiRenderer inside run loop");
+					for (Layer* layer : m_LayerStack)
+					{
+						layer->OnImGuiRender();
+					}
+				}
+				m_ImGuiLayer->End();
 			}
-			m_ImGuiLayer->Begin();
-			for (Layer* layer : m_LayerStack)
-			{
-				layer->OnImGuiRender();
-			}
-			m_ImGuiLayer->End();
 
 			m_Window->OnUpdate(); // should not need to swap buffers if minimized
 		}
@@ -90,6 +109,8 @@ namespace Hazel {
 	}
 	bool Application::OnWindowResize(WindowResizeEvent& e)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		if (e.GetWidth() == 0 || e.GetHeight() == 0)
 		{
 			m_Minimized = true;

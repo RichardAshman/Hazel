@@ -1,10 +1,11 @@
 #include "hzpch.h"
-#include "Renderer2D.h"
 
-#include "VertexArray.h"
-#include "Shader.h"
+#include "Hazel/Renderer/Renderer2D.h"
 
-#include "RenderCommand.h"
+#include "Hazel/Renderer/VertexArray.h"
+#include "Hazel/Renderer/Shader.h"
+
+#include "Hazel/Renderer/RenderCommand.h"
 
 #include <glm/gtc/matrix_transform.hpp>
 
@@ -21,6 +22,8 @@ namespace Hazel {
 
 	void Renderer2D::Init()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		s_Data = new Renderer2DStorage();
 
 		s_Data->QuadVertexArray = Hazel::VertexArray::Create();
@@ -32,16 +35,14 @@ namespace Hazel {
 			 0.5f,  0.5f, 0.0f, 1.0f, 1.0f,
 			-0.5f,  0.5f, 0.0f, 0.0f, 1.0f
 		};
-		Ref<Hazel::VertexBuffer> squareVB;
-		squareVB.reset(Hazel::VertexBuffer::Create(squareVertices, sizeof(squareVertices)));
+		Ref<VertexBuffer> squareVB = VertexBuffer::Create(squareVertices, sizeof(squareVertices));
 		squareVB->SetLayout({
 			{ShaderDataType::Float3, "a_Position"}, 
 			{ShaderDataType::Float2, "a_TexCoord"}
 			});
 		s_Data->QuadVertexArray->AddVertexBuffer(squareVB);
 		uint32_t squareIndices[6] = { 0, 1, 2, 2, 3, 0 };
-		Ref<IndexBuffer> squareIB;
-		squareIB.reset(IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t)));
+		Ref<IndexBuffer> squareIB = IndexBuffer::Create(squareIndices, sizeof(squareIndices) / sizeof(uint32_t));
 		s_Data->QuadVertexArray->SetIndexBuffer(squareIB);
 
 		s_Data->WhiteTexture = Texture2D::Create(1, 1);
@@ -56,15 +57,20 @@ namespace Hazel {
 	}
 	void Renderer2D::Shutdown()
 	{
+		HZ_PROFILE_FUNCTION();
+
 		delete s_Data;
 	}
 	void Renderer2D::BeginScene(const OrthographicCamera& camera)
 	{
+		HZ_PROFILE_FUNCTION();
+
 		s_Data->TextureShader->Bind();
 		s_Data->TextureShader->SetMat4("u_ViewProjection", camera.GetViewProjectionMatrix());
 	}
 	void Renderer2D::EndScene()
 	{
+		HZ_PROFILE_FUNCTION();
 	}
 
 	void Renderer2D::DrawQuad(const glm::vec2& position, const glm::vec2& size, const glm::vec4& color)

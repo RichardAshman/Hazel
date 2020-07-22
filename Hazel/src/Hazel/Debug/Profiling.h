@@ -22,8 +22,8 @@
 #if PROFILING
     #define HZ_PROFILE_START(name, filepath) Instrumentor::Get().BeginSession(name, filepath)
     #define HZ_PROFILE_STOP() Instrumentor::Get().EndSession()
-    #define HZ_PROFILING_SCOPE(name) InstrumentationTimer timer##__LINE__(name)
-    #define HZ_PROFILE_FUNCTION() HZ_PROFILING_SCOPE(__FUNCSIG__)
+    #define HZ_PROFILE_SCOPE(name) InstrumentationTimer timer##__LINE__(name)
+    #define HZ_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(__FUNCSIG__)
     // might need to add another macro with something like "#define COMBINE(x, y) x##y" because some compilers may not like timer##__LINE__
 #else
     #define HZ_PROFILE_START(name)
