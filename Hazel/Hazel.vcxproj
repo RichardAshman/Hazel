@@ -155,8 +155,8 @@
     <ClInclude Include="src\Hazel\Core\Log.h" />
     <ClInclude Include="src\Hazel\Core\MouseButtonCodes.h" />
     <ClInclude Include="src\Hazel\Core\Timestep.h" />
-    <ClInclude Include="src\Hazel\Debug\Profiling.h" />
     <ClInclude Include="src\Hazel\Core\Window.h" />
+    <ClInclude Include="src\Hazel\Debug\Profiling.h" />
     <ClInclude Include="src\Hazel\Events\ApplicationEvent.h" />
     <ClInclude Include="src\Hazel\Events\Event.h" />
     <ClInclude Include="src\Hazel\Events\KeyEvent.h" />
