@@ -49,7 +49,7 @@ namespace Hazel {
 			HZ_PROFILE_SCOPE("HZ glfwInit");
 
 			int success = glfwInit();
-			HZ_CORE_ASSERT(success, "Could not initalize GLFW!");
+			HZ_CORE_ASSERT(success, "Could not initialize GLFW!");
 
 			glfwSetErrorCallback(GLFWErrorCallback);
 		}
