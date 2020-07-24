@@ -3,15 +3,15 @@
 !vendor/bin/prmake/
 bin-int/
 
+# Hazel files
+*.log
+Sandbox/HazelProfile-Runtime.json
+Sandbox/HazelProfile-Shutdown.json
+Sandbox/HazelProfile-Startup.json
+
 # VS files and folders
 .vs/
 **.sln
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
-
-
-#misc
-Sandbox/HazelProfile-Runtime.json
-Sandbox/HazelProfile-Shutdown.json
-Sandbox/HazelProfile-Startup.json
