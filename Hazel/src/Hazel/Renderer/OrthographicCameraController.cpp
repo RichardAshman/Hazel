@@ -72,8 +72,8 @@ namespace Hazel {
 		HZ_PROFILE_FUNCTION();
 
 		m_ZoomLevel -= e.GetYOffset() * m_ZoomSpeed;
-		m_ZoomLevel = std::max(m_ZoomLevel, 0.5f); // stop user zooming in to far
-		m_ZoomLevel = std::min(m_ZoomLevel, 4.0f); // stop user zooming out to far
+		m_ZoomLevel = std::max(m_ZoomLevel, m_ZoomInFull);
+		m_ZoomLevel = std::min(m_ZoomLevel, m_ZoomOutFull); 
 		m_Camera.SetProjection(-m_AspectRatio * m_ZoomLevel, m_AspectRatio * m_ZoomLevel, -m_ZoomLevel, m_ZoomLevel);
 		return false;
 	}

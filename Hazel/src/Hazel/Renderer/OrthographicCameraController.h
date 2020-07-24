@@ -25,7 +25,9 @@ namespace Hazel {
 	private:
 		float m_AspectRatio;
 		float m_ZoomLevel = 1.0f;
-		float m_ZoomSpeed = 0.05f;
+		float m_ZoomInFull = 0.5f; // stop user zooming in to far
+		float m_ZoomOutFull = 8.0f; // stop user zooming out to far
+		float m_ZoomSpeed = 0.25f;
 		OrthographicCamera m_Camera;
 
 		bool m_Rotation;

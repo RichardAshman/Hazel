@@ -18,12 +18,10 @@
 #include <string>
 #include <thread>
 
-#define HZ_PROFILING 1 // or "PROFILING 0" to turn it off, 1 to turn it on // TODO move to a config file
-
 #if HZ_PROFILING
 
     // Resolve which function signature macro will be used. Note that this only
-    // is resolved when the (pre)compiler starts, so the syntax highlighting
+    // is resolved when the (pre)compiler starts, so the syntax highlighting 
     // could mark the wrong one in your editor!
     #if defined(__GNUC__) || (defined(__MWERKS__) && (__MWERKS__ >= 0x3000)) || (defined(__ICC) && (__ICC >= 600)) || defined(__ghs__)
     #define HZ_FUNC_SIG __PRETTY_FUNCTION__
