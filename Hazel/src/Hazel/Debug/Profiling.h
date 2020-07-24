@@ -17,7 +17,7 @@
 
 #include <thread>
 
-#define PROFILING 1 // or "PROFILING 0" to turn it off // TODO move to a config file
+#define PROFILING 0 // or "PROFILING 0" to turn it off, 1 to turn it on // TODO move to a config file
 
 #if PROFILING
     #define HZ_PROFILE_START(name, filepath) Instrumentor::Get().BeginSession(name, filepath)
