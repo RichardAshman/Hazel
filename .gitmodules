@@ -12,7 +12,6 @@
 	path = Hazel/vendor/imgui
 	url = https://github.com/RichardAshman/imgui
 	branch = docking
-    ignore = dirty
 [submodule "Hazel/vendor/glm"]
 	path = Hazel/vendor/glm
 	url = https://github.com/g-truc/glm
