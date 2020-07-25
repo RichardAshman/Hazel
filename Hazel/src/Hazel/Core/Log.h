@@ -1,7 +1,7 @@
 #pragma once
 //https://github.com/gabime/spdlog
 
-#include "Hazel/Core/Core.h"
+#include "Hazel/Core/Base.h"
 #include <spdlog/spdlog.h>
 #include <spdlog/fmt/ostr.h>
 
