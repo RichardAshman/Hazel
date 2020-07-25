@@ -3,6 +3,8 @@
 #include <glm\glm.hpp>
 
 namespace Hazel {
+
+
 	class OrthographicCamera
 	{
 	public:

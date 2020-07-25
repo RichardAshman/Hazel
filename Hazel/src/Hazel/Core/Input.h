@@ -16,7 +16,7 @@ namespace Hazel {
 
 		static bool IsKeyPressed(KeyCode key) { return s_Instance->IsKeyPressedImpl(key); }
 		
-		static bool IsMouseBttonPressed(MouseCode button) { return s_Instance->IsMouseButtonPressedImpl(button);}
+		static bool IsMouseButtonPressed(MouseCode button) { return s_Instance->IsMouseButtonPressedImpl(button);}
 		static std::pair<float, float> GetMousePosition() { return s_Instance->GetMousePositionImpl(); }
 		static float GetMouseX() { return s_Instance->GetMouseXImpl(); }
 		static float GetMouseY() { return s_Instance->GetMouseYImpl(); }

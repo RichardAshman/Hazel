@@ -71,7 +71,7 @@
 	#endif
 
 	#define HZ_ENABLE_ASSERTS
-	#define HZ_PROFILING 1 // or "PROFILING 0" to turn it off, 1 to turn it on // TODO move to a config file
+	#define HZ_PROFILING 0 // or "PROFILING 0" to turn it off, 1 to turn it on // TODO move to a config file
 
 #else
 #define HZ_DEBUGBREAK()
