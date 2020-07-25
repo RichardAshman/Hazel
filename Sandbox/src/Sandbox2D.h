@@ -22,7 +22,9 @@ private:
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
-	Hazel::Ref<Hazel::Texture2D> m_transparentTexture;
+	Hazel::Ref<Hazel::Texture2D> m_RandTexture;
+
+	Hazel::Ref<Hazel::Texture2D> m_SpriteSheet;
 
 	struct ProfileResult
 	{
@@ -31,7 +33,7 @@ private:
 	};
 	std::vector<ProfileResult> m_ProfileResults;
 
-	glm::vec4 m_SquareColor = { 0.2f, 0.3f, 1.0f, 1.0f};
+	glm::vec4 m_CustomColor = { 0.2f, 0.3f, 1.0f, 1.0f};
 
 	ParticleSystem m_ParticleSystem;
 	ParticleProps m_Particle;

@@ -43,6 +43,12 @@ namespace Hazel {
 					C:\Dev\Hazel\Hazel\Vendor>git status
 					C:\Dev\Hazel\Hazel\Vendor>git add imgui
 					C:\Dev\Hazel\Hazel\Vendor\imgui>git submodule update --remote
+
+
+
+
+					C:\Dev\Hazel>git submodule add https://github.com/RichardAshman/imgui Hazel/Vendor/imgui
+'Hazel/Vendor/imgui' already exists in the index
 			*/
 
 		io.ConfigFlags |= ImGuiConfigFlags_DockingEnable;			// Enable Docking

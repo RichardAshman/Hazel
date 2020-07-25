@@ -27,5 +27,5 @@ private:
 	Hazel::Ref<Hazel::Texture2D> m_Texture2;
 
 	Hazel::OrthographicCameraController m_CameraController;
-	glm::vec3 m_SquareColor = { 0.2f, 0.3f, 8.0f };
+	glm::vec3 m_CustomColor = { 0.2f, 0.3f, 8.0f };
 };

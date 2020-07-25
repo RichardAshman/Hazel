@@ -165,7 +165,7 @@ void ExampleLayer::OnUpdate(Hazel::Timestep ts)
 	// 
 
 	m_FlatColorShader->Bind();
-	m_FlatColorShader->SetFloat3("u_Color", m_SquareColor);
+	m_FlatColorShader->SetFloat3("u_Color", m_CustomColor);
 
 	// Submit to be drawn
 	for (int y = 0; y < 20; y++)
@@ -201,7 +201,7 @@ void ExampleLayer::OnUpdate(Hazel::Timestep ts)
 void ExampleLayer::OnImGuiRender()
 {
 	ImGui::Begin("Settings");
-	ImGui::ColorEdit3("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::ColorEdit3("Square Color", glm::value_ptr(m_CustomColor));
 	ImGui::End();
 }
 void ExampleLayer::OnEvent(Hazel::Event& e)

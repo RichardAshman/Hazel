@@ -11,7 +11,7 @@
 
 
 Sandbox2D::Sandbox2D()
-	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f, true), m_SquareColor({ 0.2f, 0.3f, 0.8f, 1.0f })
+	: Layer("Sandbox2D"), m_CameraController(1280.0f / 720.0f, true), m_CustomColor({ 0.2f, 0.3f, 0.8f, 1.0f })
 {
 }
 
@@ -19,8 +19,10 @@ void Sandbox2D::OnAttach()
 {
 	HZ_PROFILE_FUNCTION();
 
-	m_transparentTexture = Hazel::Texture2D::Create("assets/textures/Rand.png");
-	//m_Texture = Hazel::Texture2D::Create("assets/textures/Rand2.png");
+	m_RandTexture = Hazel::Texture2D::Create("assets/textures/Rand.png");
+
+	m_SpriteSheet = Hazel::Texture2D::Create("assets/game/textures/RPGpack_sheet_2X.png");
+	
 
 	// Init particle here
 	m_Particle.ColorBegin = { 254 / 255.0f, 212 / 255.0f, 123 / 255.0f, 1.0f };
@@ -52,32 +54,30 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		Hazel::RenderCommand::Clear();
 	}
 
+		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
+		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.1f }, { 1.0f, 1.0f }, m_RandTexture, 1.0f, m_CustomColor);
+
+		Hazel::Renderer2D::EndScene();
+/*
 	{
 		HZ_PROFILE_SCOPE("Renderer Draw");
 		static float rotation = 0.0f;
 		rotation += ts * 50;
 
 		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
-		/*
+		
 		//-z axis is in front // scale factor of 2 will be half the size ie there will be two of the same image (default of 1)
 		Hazel::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f }, { 0.8f, 0.8f }, glm::radians(-45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
 		Hazel::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f}, { 10.0f, 10.0f }, m_transparentTexture); 
-		*/
+		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, -0.1f}, { 10.0f, 10.0f }, m_RandTexture); 
+		
 
-		Hazel::Renderer2D::DrawQuad({ 3.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, m_SquareColor);
+		Hazel::Renderer2D::DrawQuad({ 3.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, m_CustomColor);
 		Hazel::Renderer2D::DrawRotatedQuad({ -3.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, glm::radians(45.0f), { 0.8f, 0.2f, 0.3f, 1.0f });
 		Hazel::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, glm::radians(rotation), { 0.8f, 0.2f, 0.3f, 1.0f });
 
 		Hazel::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, glm::radians(-rotation), { 0.1f, 0.2f, 0.3f, 1.0f });
 
-		//Hazel::Renderer2D::DrawQuad({ -1.0f, 0.0f, 0.5f}, { 0.8f, 0.8f }, { 0.8f, 0.2f, 0.3f, 1.0f });
-		//Hazel::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-
-		//Hazel::Renderer2D::DrawQuad({ 0.5f, -0.5f, 0.4f }, { 0.5f, 0.75f }, m_transparentTexture);
-
-		//Hazel::Renderer2D::DrawQuad({ -2.0f, -5.0f, -0.1f}, { 10.0f, 10.0f }, m_transparentTexture, 1); 
-		//Hazel::Renderer2D::DrawQuad({ -5.0f, -2.0f, -0.2f}, { 10.0f, 10.0f }, m_transparentTexture, 1); 
 
 		for (float y = -5.0f; y < 5.0f; y += 0.5f)
 		{
@@ -89,10 +89,13 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		}
 		Hazel::Renderer2D::EndScene();
 	}
+		*/
 
 
 	if (Hazel::Input::IsMouseButtonPressed(HZ_MOUSE_BUTTON_LEFT))
 	{
+
+		// Particle controls
 		auto [x, y] = Hazel::Input::GetMousePosition();
 		auto width = Hazel::Application::Get().GetWindow().GetWidth();
 		auto height = Hazel::Application::Get().GetWindow().GetHeight();
@@ -102,15 +105,27 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		x = (x / width) * bounds.GetWidth() - bounds.GetWidth() * 0.5f;
 		y = bounds.GetHeight() * 0.5f - (y / height) * bounds.GetHeight();
 		m_Particle.Position = { x + pos.x, y + pos.y };
-		for (int i = 0; i < 50; i++) // number of particles per tick
+		for (int i = 0; i < 5; i++) // number of particles per tick
 			m_ParticleSystem.Emit(m_Particle);
 	}
 
+
+
+
+
+
+	//Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+	//Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.1f }, { 1.0f,1.0f }, m_SpriteSheet);
+
+	//Hazel::Renderer2D::EndScene();
+
+
+
+
+	// Draw particles
 	m_ParticleSystem.OnUpdate(ts);
 	m_ParticleSystem.OnRender(m_CameraController.GetCamera());
-
-
-
 }
 
 void Sandbox2D::OnImGuiRender()
@@ -124,7 +139,7 @@ void Sandbox2D::OnImGuiRender()
 	ImGui::Text("Vertex: %d", stats.GetTotalVertexCount());
 	ImGui::Text("Indices: %d", stats.GetTotalIndexCount());
 
-	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_SquareColor));
+	ImGui::ColorEdit4("Square Color", glm::value_ptr(m_CustomColor));
 
 
 

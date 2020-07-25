@@ -14,7 +14,7 @@ struct ParticleProps
 class ParticleSystem
 {
 public:
-	ParticleSystem(uint32_t maxParticles = 1000000);
+	ParticleSystem(uint32_t maxParticles = 200000);
 
 	void OnUpdate(Hazel::Timestep ts);
 	void OnRender(Hazel::OrthographicCamera& camera);
@@ -29,7 +29,7 @@ private:
 		float Rotation = 0.0f;
 		float SizeBegin, SizeEnd;
 
-		float LifeTime = 5.0f;
+		float LifeTime = 2.0f;
 		float LifeRemaining = 0.0f;
 
 		bool Active = false;
