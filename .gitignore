@@ -15,3 +15,5 @@ Sandbox/HazelProfile-Startup.json
 **.vcxproj
 **.vcxproj.filters
 **.vcxproj.user
+Hazel/Vendor/GLFW
+Hazel/Vendor/imgui
