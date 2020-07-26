@@ -153,3 +153,57 @@ project "Sandbox"
 		defines "HZ_Dist"
 		runtime "Release"
 		optimize "on"
+
+		
+
+
+project "Hazel-Editor"
+	location "Hazel-Editor"
+	kind "ConsoleApp"
+	language "c++"
+	cppdialect "c++17"
+	staticruntime "on"
+	
+	targetdir ("bin/" .. outputdir .. "/%{prj.name}")
+	objdir ("bin-int/" .. outputdir .. "/%{prj.name}")
+
+	files
+	{
+		"%{prj.name}/src/**.h", 
+		"%{prj.name}/src/**.cpp"
+	}
+
+	includedirs
+	{
+		"Hazel/vendor/spdlog/include",
+		"Hazel/src",
+		"Hazel/vendor",
+		"%{IncludeDir.glm}"
+	}
+
+	links
+	{
+		"Hazel"
+	}
+
+	filter "system:windows"
+		cppdialect "c++17"
+		systemversion "latest"
+		defines
+		{
+			"HZ_PLATFORM_WINDOWS",
+		}
+	filter "configurations:Debug"
+		defines "HZ_DEBUG"
+		runtime "Debug"
+		symbols "on"
+
+	filter "configurations:Release"
+		defines "HZ_RELEASE"
+		runtime "Release"
+		optimize "on"
+
+	filter "configurations:Dist"
+		defines "HZ_Dist"
+		runtime "Release"
+		optimize "on"

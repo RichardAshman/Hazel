@@ -10,9 +10,18 @@ namespace Hazel {
 		{
 
 		}
-		operator float() const { return m_Time; } // so we can just use it as a float. eg call speed * timestep
-		float GetSeconds() const { return m_Time; }
-		float GetMilliseconds() const { return m_Time * 1000.0f; }
+		operator float() const 
+		{ 
+			return m_Time; 
+		} // so we can just use it as a float. eg call speed * timestep
+		float GetSeconds() const 
+		{ 
+			return m_Time; 
+		}
+		float GetMilliseconds() const 
+		{ 
+			return m_Time * 1000.0f; 
+		}
 
 	private:
 		float m_Time;

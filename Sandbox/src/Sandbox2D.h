@@ -21,7 +21,6 @@ private:
 	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
-	Hazel::Ref<Hazel::Framebuffer> m_Framebuffer;
 
 	Hazel::Ref<Hazel::Texture2D> m_RandTexture;
 
@@ -33,7 +32,7 @@ private:
 		const char* Name;
 		float Time;
 	};
-	std::vector<ProfileResult> m_ProfileResults;
+	//std::vector<ProfileResult> m_ProfileResults;
 
 	// Remove these when new particle system is made
 	ParticleSystem m_ParticleSystem;
