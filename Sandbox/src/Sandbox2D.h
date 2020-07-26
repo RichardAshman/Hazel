@@ -21,11 +21,13 @@ private:
 	// Temp
 	Hazel::Ref<Hazel::VertexArray> m_SquareVA;
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
+	Hazel::Ref<Hazel::Framebuffer> m_Framebuffer;
 
 	Hazel::Ref<Hazel::Texture2D> m_RandTexture;
 
-	Hazel::Ref<Hazel::Texture2D> m_SpriteSheet;
+	glm::vec4 m_CustomColor = { 0.2f, 0.3f, 1.0f, 1.0f};
 
+	//ProfileResults to be moved
 	struct ProfileResult
 	{
 		const char* Name;
@@ -33,8 +35,7 @@ private:
 	};
 	std::vector<ProfileResult> m_ProfileResults;
 
-	glm::vec4 m_CustomColor = { 0.2f, 0.3f, 1.0f, 1.0f};
-
+	// Remove these when new particle system is made
 	ParticleSystem m_ParticleSystem;
 	ParticleProps m_Particle;
 };
