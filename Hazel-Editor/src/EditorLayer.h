@@ -28,10 +28,12 @@ namespace Hazel {
 
 		glm::vec4 m_CustomColor = { 0.2f, 0.3f, 1.0f, 1.0f };
 
+		bool m_ViewportFocused = false;
+		bool m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
 
 
-		//ProfileResults to be moved
+		//TODO: ProfileResults to be moved
 		struct ProfileResult
 		{
 			const char* Name;

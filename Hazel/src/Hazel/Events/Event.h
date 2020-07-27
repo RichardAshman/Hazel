@@ -40,6 +40,8 @@ namespace Hazel {
 	{
 		//friend class EventDispatcher;
 	public:
+		virtual ~Event() = default;
+
 		bool Handled = false;
 		virtual EventType GetEventType() const = 0;
 		virtual const char* GetName() const = 0; // This should only be used in debugging. Change this and GetCategoryFlags
