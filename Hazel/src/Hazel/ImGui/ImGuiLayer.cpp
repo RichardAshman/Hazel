@@ -81,6 +81,7 @@ namespace Hazel {
 
 	void ImGuiLayer::OnEvent(Event& e)
 	{
+		// TODO: This code needs to be changed. It is stopping the zoom from the scroll
 		ImGuiIO& io = ImGui::GetIO();
 		e.Handled |= e.IsInCategory(EventCategoryMouse) & io.WantCaptureMouse;
 		e.Handled |= e.IsInCategory(EventCategoryKeyboard) & io.WantCaptureKeyboard;
