@@ -23,13 +23,13 @@ IncludeDir["Glad"] = "Hazel/vendor/Glad/include"
 IncludeDir["ImGui"] = "Hazel/vendor/imgui"
 IncludeDir["glm"] = "Hazel/vendor/glm"
 IncludeDir["stb_image"] = "Hazel/vendor/stb_image"
+IncludeDir["entt"] = "Hazel/vendor/entt/include"
 
 group "Dependencies"
 	include "Hazel/vendor/GLFW"
 	include "Hazel/vendor/Glad"
 	include "Hazel/vendor/imgui"
-	
---Group ""
+group ""
 
 project "Hazel"
 	location "Hazel"
@@ -68,7 +68,8 @@ project "Hazel"
 		"%{IncludeDir.Glad}",
 		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.stb_image}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}"
 	}
 	links
 	{
@@ -84,10 +85,7 @@ project "Hazel"
 		{
 
 		}
-		--postbuildcommands
-		--{
-		--	("{COPY} %{cfg.buildtarget.relpath} \"../bin/" .. outputdir .. "/Sandbox/\"")
-		--}
+
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
@@ -102,7 +100,7 @@ project "Hazel"
 		defines "HZ_DIST"
 		runtime "Release"
 		optimize "on"
-
+------------------------------------------
 project "Sandbox"
 	location "Sandbox"
 	kind "ConsoleApp"
@@ -124,7 +122,8 @@ project "Sandbox"
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
 		"Hazel/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links
@@ -132,13 +131,9 @@ project "Sandbox"
 		"Hazel"
 	}
 
-	filter "system:windows"
-		cppdialect "c++17"
+	filter "system:windows" --cppdialect "c++17"
 		systemversion "latest"
-		defines
-		{
-			"HZ_PLATFORM_WINDOWS",
-		}
+
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"
 		runtime "Debug"
@@ -153,10 +148,7 @@ project "Sandbox"
 		defines "HZ_Dist"
 		runtime "Release"
 		optimize "on"
-
-		
-
-
+-----------------------------------------
 project "Hazel-Editor"
 	location "Hazel-Editor"
 	kind "ConsoleApp"
@@ -178,7 +170,8 @@ project "Hazel-Editor"
 		"Hazel/vendor/spdlog/include",
 		"Hazel/src",
 		"Hazel/vendor",
-		"%{IncludeDir.glm}"
+		"%{IncludeDir.glm}",
+		"%{IncludeDir.entt}"
 	}
 
 	links

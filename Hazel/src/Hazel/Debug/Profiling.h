@@ -49,7 +49,7 @@
     #define HZ_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(HZ_FUNC_SIG)
     // might need to add another macro with something like "#define COMBINE(x, y) x##y" because some compilers may not like timer##__LINE__
 #else
-    #define HZ_PROFILE_START(name)
+    #define HZ_PROFILE_START(name, filepath)
     #define HZ_PROFILE_SCOPE(name)
     #define HZ_PROFILE_STOP()
     #define HZ_PROFILE_FUNCTION()

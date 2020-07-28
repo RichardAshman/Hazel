@@ -32,6 +32,9 @@ namespace Hazel {
 		bool m_ViewportHovered = false;
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
 
+		Ref<Scene> m_ActiveScene;
+		entt::entity m_SquareEntity;
+
 
 		//TODO: ProfileResults to be moved
 		struct ProfileResult
