@@ -33,7 +33,7 @@ namespace Hazel {
 		glm::vec2 m_ViewportSize = {0.0f, 0.0f};
 
 		Ref<Scene> m_ActiveScene;
-		entt::entity m_SquareEntity;
+		Entity m_SquareEntity, m_Square2;
 
 
 		//TODO: ProfileResults to be moved

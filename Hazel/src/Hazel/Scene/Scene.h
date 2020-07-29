@@ -4,25 +4,25 @@
 
 namespace Hazel
 {
-
+	class Entity;
 	class Scene
 	{
 	public :
 		Scene();
 		~Scene();
 
-		entt::entity CreateEntity();
+		Entity CreateEntity(const std::string& name = std::string());
 
 		//TEMP
-		entt::registry& GetReg() { return m_Reg; }
+		//entt::registry& GetReg() { return m_Registry; }
 
 
 
 		void OnUpdate(Timestep ts);
 
 	private:
-		entt::registry m_Reg; //m_Registry. Storage of entity IDs (think context containing entities)
+		entt::registry m_Registry; //m_Registry. Storage of entity IDs (think context containing entities)
 
-
+		friend class Entity;
 	};
 }

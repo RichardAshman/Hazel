@@ -6,6 +6,8 @@
 
 #include <glm/glm.hpp>
 
+#include "Entity.h"
+
 namespace Hazel
 {
 	Scene::Scene()
@@ -14,13 +16,17 @@ namespace Hazel
 	Scene::~Scene()
 	{
 	}
-	entt::entity Scene::CreateEntity()
+	Entity Scene::CreateEntity(const std::string& name)
 	{
-		return m_Reg.create();
+		Entity entity = { m_Registry.create(), this};
+		entity.AddComponent<TransformComponent>();
+		auto& tag = entity.AddComponent<TagComponent>();
+		tag.Tag = name.empty() ? "Entity" : name;
+		return entity;
 	}
 	void Scene::OnUpdate(Timestep ts)
 	{
-		auto group = m_Reg.group<TransformComponent>(entt::get<SpriteRendererComponent>);
+		auto group = m_Registry.group<TransformComponent>(entt::get<SpriteRendererComponent>);
 		for (auto entity : group)
 		{
 			auto& [transform, sprite] = group.get<TransformComponent, SpriteRendererComponent>(entity);
@@ -52,27 +58,27 @@ namespace Hazel
 		//TransformComponent transform;
 		//DoMath(transform);
 
-		entt::entity entity = m_Reg.create(); // create entity
-		auto& transform = m_Reg.emplace<TransformComponent>(entity, glm::mat4(1.0f)); // add a transform matrix to compoent
+		entt::entity entity = m_Registry.create(); // create entity
+		auto& transform = m_Registry.emplace<TransformComponent>(entity, glm::mat4(1.0f)); // add a transform matrix to compoent
 
-		m_Reg.on_construct<TransformComponent>().connect<&OnTransformConstuct>();
+		m_Registry.on_construct<TransformComponent>().connect<&OnTransformConstuct>();
 
-		if (m_Reg.has<TransformComponent>(entity))
+		if (m_Registry.has<TransformComponent>(entity))
 		{
-			auto& transform = m_Reg.get<TransformComponent>(entity);
+			auto& transform = m_Registry.get<TransformComponent>(entity);
 			transform = glm::mat4(1.0f); // make changes to the transform
-			//m_Reg.remove(entity); // delete a entity
+			//m_Registry.remove(entity); // delete a entity
 		}
 
 		// go through all enititys with a component type eg TransformComponent
-		auto view = m_Reg.view<TransformComponent>();
+		auto view = m_Registry.view<TransformComponent>();
 		for (auto entity : view)
 		{
-			TransformComponent& transform = m_Reg.get<TransformComponent>(entity);
+			TransformComponent& transform = m_Registry.get<TransformComponent>(entity);
 			// do something with the transform
 		}
 
-		auto group = m_Reg.group<TransformComponent>(entt::get<MeshComponent>);
+		auto group = m_Registry.group<TransformComponent>(entt::get<MeshComponent>);
 		for (auto entity : group)
 		{
 			auto&[transform, mesh] = group.get<TransformComponent, MeshComponent>(entity);
