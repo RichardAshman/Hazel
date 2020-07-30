@@ -99,7 +99,7 @@ namespace Hazel {
 
 		s_Data.TextureShader = Shader::Create("assets/shaders/Texture.glsl");
 		s_Data.TextureShader->Bind();
-		s_Data.TextureShader->SetIntArray("u_Texture", samplers, s_Data.MaxTextureSlots);
+		s_Data.TextureShader->SetIntArray("u_Textures", samplers, s_Data.MaxTextureSlots);
 
 		// Set the first texture to be white (normal color)
 		s_Data.WhiteTexture = Texture2D::Create(1, 1);
