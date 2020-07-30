@@ -39,13 +39,10 @@ public:
 		m_Scene->m_Registry.remove<T>(m_EntityHandle);
 	}
 	
-	operator bool() const 
-	{
-		return /*(uint32_t)*/m_EntityHandle != entt::null/*(uint32_t)0*/;
-	}
+	operator bool() const { return m_EntityHandle != entt::null; }
 
 private:
-	entt::entity m_EntityHandle{1 };
+	entt::entity m_EntityHandle{ entt::null };
 
 	Scene* m_Scene = nullptr; // make sure to check if it points to anything before use
 	//TODO: change to something like weakref?

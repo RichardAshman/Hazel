@@ -43,9 +43,13 @@
 
     #define HZ_PROFILE_START(name, filepath) Hazel::Profiler::Get().BeginSession(name, filepath)
     #define HZ_PROFILE_STOP() Hazel::Profiler::Get().EndSession()
-    //#define HZ_PROFILE_SCOPE(name) Hazel::ProfileTimer timer##__LINE__(name)
-    #define HZ_PROFILE_SCOPE(name) constexpr auto fixedName = ::Hazel::ProfileUtils::CleanupOutputString(name, "__cdecl ");\
+   // #define HZ_PROFILE_SCOPE(name) constexpr auto fixedName = ::Hazel::ProfileUtils::CleanupOutputString(name, "__cdecl ");\
 									    ::Hazel::ProfileTimer timer##__LINE__(fixedName.Data)
+    #define HZ_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Hazel::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
+                                        ::Hazel::InstrumentationTimer timer##line(fixedName##line.Data)
+    #define HZ_PROFILE_SCOPE_LINE(name, line) HZ_PROFILE_SCOPE_LINE2(name, line)
+    #define HZ_PROFILE_SCOPE(name) HZ_PROFILE_SCOPE_LINE(name, __LINE__)
+
     #define HZ_PROFILE_FUNCTION() HZ_PROFILE_SCOPE(HZ_FUNC_SIG)
     // might need to add another macro with something like "#define COMBINE(x, y) x##y" because some compilers may not like timer##__LINE__
 #else
@@ -73,16 +77,11 @@ namespace Hazel {
 
     class Profiler
     {
-    private:
-        std::mutex m_Mutex;
-        ProfileSession* m_CurrentSession;
-        std::ofstream m_OutputStream;
+
 
     public:
-        Profiler()
-            : m_CurrentSession(nullptr)
-        {
-        }
+        Profiler(const Profiler&) = delete;
+        Profiler(Profiler&&) = delete;
 
         void BeginSession(const std::string& name, const std::string& filepath = "result.json")
         {
@@ -155,7 +154,14 @@ namespace Hazel {
             return instance;
         }
     private:
-
+        Profiler()
+            : m_CurrentSession(nullptr)
+        {
+        }
+        ~Profiler()
+        {
+            EndSession();
+        }
         void WriteHeader()
         {
             m_OutputStream << "{\"otherData\": {},\"traceEvents\":[{}";
@@ -179,6 +185,10 @@ namespace Hazel {
                 m_CurrentSession = nullptr;
             }
         }
+    private:
+        std::mutex m_Mutex;
+        ProfileSession* m_CurrentSession;
+        std::ofstream m_OutputStream;
     };
 
 

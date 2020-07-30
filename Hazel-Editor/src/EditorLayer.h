@@ -34,6 +34,9 @@ namespace Hazel {
 
 		Ref<Scene> m_ActiveScene;
 		Entity m_SquareEntity, m_Square2;
+		Entity m_CameraEntity;
+		Entity m_SecondCamera;
+		bool m_PrimaryCamera = true;
 
 
 		//TODO: ProfileResults to be moved
