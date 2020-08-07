@@ -61,7 +61,9 @@ namespace Hazel {
 		dispatcher.Dispatch<WindowCloseEvent> (HZ_BIND_EVENT_FN(Application::OnWindowClose));
 		dispatcher.Dispatch<WindowResizeEvent>(HZ_BIND_EVENT_FN(Application::OnWindowResize));
 
+		#if HZ_LOG_EVENTS_TO_CONSOLE
 		HZ_CORE_TRACE("OnEvent 1 --> {0}", e);
+		#endif // HZ_LOG_EVENTS_TO_CONSOLE
 
 		for (auto it = m_LayerStack.rbegin(); it != m_LayerStack.rend(); ++it)
 		{

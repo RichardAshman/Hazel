@@ -31,6 +31,7 @@ namespace Hazel {
 		Ref<VertexBuffer> QuadVertexBuffer;
 		Ref<Shader> TextureShader;
 		Ref<Texture2D> WhiteTexture;
+		//Ref<Texture2D> ClearTexture;
 
 		uint32_t QuadIndexCount = 0;
 		QuadVertex* QuadVertexBufferBase = nullptr;
@@ -106,6 +107,12 @@ namespace Hazel {
 		uint32_t whiteTextureData = 0xffffffff;
 		s_Data.WhiteTexture->SetData(&whiteTextureData, sizeof(uint32_t));
 		s_Data.TextureSlots[0] = s_Data.WhiteTexture;
+
+		// Set the first texture to be clear ()
+		//s_Data.ClearTexture = Texture2D::Create(1, 1);
+		//uint32_t clearTextureData = 0xffffff00;
+		//s_Data.ClearTexture->SetData(&clearTextureData, sizeof(uint32_t));
+		//s_Data.TextureSlots[1] = s_Data.ClearTexture;
 	}
 	void Renderer2D::Shutdown()
 	{
@@ -205,7 +212,7 @@ namespace Hazel {
 		glm::mat4 transform = glm::translate(glm::mat4(1.0f), position)
 			* glm::scale(glm::mat4(1.0f), { size.x, size.y, 1.0f });
 
-		DrawQuad(transform, texture, tilingFactor);
+		DrawQuad(transform, texture, tilingFactor, tintColor);
 	}
 
 	void Renderer2D::DrawQuad(const glm::mat4& transform, const glm::vec4& color)

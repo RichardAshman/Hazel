@@ -43,8 +43,6 @@
 
     #define HZ_PROFILE_START(name, filepath) Hazel::Profiler::Get().BeginSession(name, filepath)
     #define HZ_PROFILE_STOP() Hazel::Profiler::Get().EndSession()
-   // #define HZ_PROFILE_SCOPE(name) constexpr auto fixedName = ::Hazel::ProfileUtils::CleanupOutputString(name, "__cdecl ");\
-									    ::Hazel::ProfileTimer timer##__LINE__(fixedName.Data)
     #define HZ_PROFILE_SCOPE_LINE2(name, line) constexpr auto fixedName##line = ::Hazel::InstrumentorUtils::CleanupOutputString(name, "__cdecl ");\
                                         ::Hazel::InstrumentationTimer timer##line(fixedName##line.Data)
     #define HZ_PROFILE_SCOPE_LINE(name, line) HZ_PROFILE_SCOPE_LINE2(name, line)

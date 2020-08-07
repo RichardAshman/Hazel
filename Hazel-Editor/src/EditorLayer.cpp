@@ -6,9 +6,6 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
-//Temp
-#include "Platform\OpenGL\OpenGLShader.h"
-
 namespace Hazel {
 
 	EditorLayer::EditorLayer()
@@ -20,7 +17,7 @@ namespace Hazel {
 	{
 		HZ_PROFILE_FUNCTION();
 
-		m_RandTexture = Texture2D::Create("assets/textures/Rand.png");
+		//m_RandTexture = Texture2D::Create("assets/textures/Rand.png");
 
 		FramebufferSpecification fbSpec;
 		fbSpec.Width = 1280;
@@ -31,23 +28,29 @@ namespace Hazel {
 
 		Entity square = m_ActiveScene->CreateEntity("Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
-
 		m_SquareEntity = square;
 
-		Entity square2 = m_ActiveScene->CreateEntity("Square2");
-		square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-		auto& s2Transform = square2.GetComponent<TransformComponent>().Transform;
-		s2Transform = glm::translate(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
-		s2Transform = glm::scale(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
+		//Entity square2 = m_ActiveScene->CreateEntity("Square2");
+		//square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+		//auto& s2Transform = square2.GetComponent<TransformComponent>().Transform;
+		//s2Transform = glm::translate(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
+		//s2Transform = glm::scale(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
+		//m_Square2 = square2;
 
-		m_Square2 = square2;
+		//Entity square3 = m_ActiveScene->CreateEntity("Square3");
+		//square3.AddComponent<SpriteRendererComponent>(m_RandTexture, glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
+		//auto& s3Transform = square3.GetComponent<TransformComponent>().Transform;
+		//s2Transform = glm::translate(s3Transform, glm::vec3{ 0.5f,-0.8f, 0.0f });
+		//s2Transform = glm::scale(s3Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
+		//m_Square3 = square3;
 
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
-		m_CameraEntity.AddComponent<CameraComponent>(glm::ortho(-16.0f, 16.0f, -9.0f, 9.0f, -1.0f, 1.0f));
+		m_CameraEntity.AddComponent<CameraComponent>();
 
 		m_SecondCamera = m_ActiveScene->CreateEntity("Clip-Space Entity");
-		auto & cc = m_SecondCamera.AddComponent<CameraComponent>(glm::ortho(-1.0f, 1.0f, -1.0f, 1.0f, -1.0f, 1.0f));
+		auto & cc = m_SecondCamera.AddComponent<CameraComponent>();
 		cc.Primary = false;
+		//cc.FixedAspectRatio = true;
 	}
 
 	void EditorLayer::OnDetach()
@@ -67,9 +70,15 @@ namespace Hazel {
 		{
 			m_Framebuffer->Resize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 			m_CameraController.OnResize(m_ViewportSize.x, m_ViewportSize.y);
+
+			m_ActiveScene->OnViewportResize((uint32_t)m_ViewportSize.x, (uint32_t)m_ViewportSize.y);
 		}
 
-		m_CameraController.OnUpdate(ts);
+		// Update
+		if (m_ViewportFocused)
+		{
+			m_CameraController.OnUpdate(ts);
+		}
 
 		//Renderer
 		Renderer2D::ResetStats();
@@ -80,7 +89,7 @@ namespace Hazel {
 
 		//Renderer2D::BeginScene(m_CameraController.GetCamera());
 
-		//Update
+		//Update scene
 		m_ActiveScene->OnUpdate(ts);
 
 		//Renderer2D::EndScene();
@@ -93,14 +102,14 @@ namespace Hazel {
 		//ImGui::ShowDemoWindow();
 
 		//example of adding text to imgui
-		for (auto& result : m_ProfileResults)
-		{
-			char label[50];
-			strcpy(label, " %.3fms ");
-			strcat(label, result.Name);
-			ImGui::Text(label, result.Time);
-		}
-		m_ProfileResults.clear();
+		//for (auto& result : m_ProfileResults)
+		//{
+		//	char label[50];
+		//	strcpy(label, " %.3fms ");
+		//	strcat(label, result.Name);
+		//	ImGui::Text(label, result.Time);
+		//}
+		//m_ProfileResults.clear();
 
 
 
@@ -165,10 +174,10 @@ namespace Hazel {
 
 				//if (ImGui::MenuItem("Flag: NoSplit", "", (dockspace_flags & ImGuiDockNodeFlags_NoSplit) != 0))                 dockspace_flags ^= ImGuiDockNodeFlags_NoSplit;
 				//if (ImGui::MenuItem("Flag: NoResize", "", (dockspace_flags & ImGuiDockNodeFlags_NoResize) != 0))                dockspace_flags ^= ImGuiDockNodeFlags_NoResize;
-				if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0))  dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode;
-				if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0))     dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode;
-				if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0))          dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar;
-				ImGui::Separator();
+				//if (ImGui::MenuItem("Flag: NoDockingInCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_NoDockingInCentralNode) != 0))  dockspace_flags ^= ImGuiDockNodeFlags_NoDockingInCentralNode;
+				//if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0))     dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode;
+				//if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0))          dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar;
+				//ImGui::Separator();
 				if (ImGui::MenuItem("Exit", NULL, false))
 				{
 					Application::Get().Close();
@@ -196,15 +205,15 @@ namespace Hazel {
 			auto& squareColor = m_SquareEntity.GetComponent<SpriteRendererComponent>().Color;
 			ImGui::ColorEdit4("Square Color", glm::value_ptr(squareColor));
 		}
-		if (m_Square2)
-		{
-			ImGui::Separator;
-			auto& tag = m_Square2.GetComponent<TagComponent>().Tag;
-			ImGui::Text("%s", tag.c_str());
+		//if (m_Square2)
+		//{
+		//	ImGui::Separator;
+		//	auto& tag = m_Square2.GetComponent<TagComponent>().Tag;
+		//	ImGui::Text("%s", tag.c_str());
 
-			auto& squareColor = m_Square2.GetComponent<SpriteRendererComponent>().Color;
-			ImGui::ColorEdit4("Square Color2", glm::value_ptr(squareColor));
-		}
+		//	auto& squareColor = m_Square2.GetComponent<SpriteRendererComponent>().Color;
+		//	ImGui::ColorEdit4("Square Color2", glm::value_ptr(squareColor));
+		//}
 
 		ImGui::DragFloat3("Camera Transform", glm::value_ptr(m_CameraEntity.GetComponent<TransformComponent>().Transform[3]));
 		if (ImGui::Checkbox("Camera A", &m_PrimaryCamera))
@@ -212,7 +221,14 @@ namespace Hazel {
 			m_CameraEntity.GetComponent<CameraComponent>().Primary = m_PrimaryCamera;
 			m_SecondCamera.GetComponent<CameraComponent>().Primary = !m_PrimaryCamera;
 		}
-		
+		{
+			auto& camera = m_SecondCamera.GetComponent<CameraComponent>().Camera;
+			float orthoSize = camera.GetOrthographicSize();
+			if (ImGui::DragFloat("Second Camera Ortho Size", &orthoSize))
+			{
+				camera.SetOrthographicSize(orthoSize);
+			}
+		}
 
 		ImGui::End();
 

@@ -23,6 +23,7 @@ private:
 	Hazel::Ref<Hazel::Shader> m_FlatColorShader;
 
 	Hazel::Ref<Hazel::Texture2D> m_RandTexture;
+	Hazel::Ref<Hazel::Texture2D> m_ChernoTexture;
 
 	glm::vec4 m_CustomColor = { 0.2f, 0.3f, 1.0f, 1.0f};
 

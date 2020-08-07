@@ -17,7 +17,11 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "MouseMovedEvent: " << m_MouseX << ", " << m_MouseY;
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
+
 			return ss.str();
 		}
 
@@ -39,7 +43,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "MouseScrolledEvent: " << GetXOffset() << ", " << GetYOffset();
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 
@@ -71,7 +77,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "MouseButtonPressedEvent: " << m_Button;
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseButtonPressed)
@@ -86,7 +94,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "MouseButtonReleasedEvent: " << m_Button;
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 		EVENT_CLASS_TYPE(MouseButtonReleased)

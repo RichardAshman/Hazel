@@ -20,6 +20,7 @@ void Sandbox2D::OnAttach()
 	HZ_PROFILE_FUNCTION();
 
 	m_RandTexture = Hazel::Texture2D::Create("assets/textures/Rand.png");
+	m_ChernoTexture = Hazel::Texture2D::Create("assets/textures/ChernoLogo.png");
 
 	// TODO remove particles from here when new system is made.
 	// Init particle here
@@ -67,6 +68,25 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		HZ_PROFILE_SCOPE("Renderer Draw");
 		//-z axis is in front // scale factor of 2 will be half the size ie there will be two of the same image (default of 1)
 		Hazel::Renderer2D::BeginScene(m_CameraController.GetCamera());
+
+
+		Hazel::Renderer2D::DrawQuad({ 0.0f, 1.0f, 0.01f }, { 2.5f, 2.5f }, m_RandTexture/*, 1.0f, m_CustomColor*/);
+		Hazel::Renderer2D::DrawQuad({ 0.0f, 0.0f, 0.02f }, { 3.0f, 3.0f }, m_ChernoTexture/*, 1.0f, m_CustomColor*/);
+		
+		for (float y = -5.0f; y < 5.0f; y += 0.5f)
+		{
+			for (float x = -5.0f; x < 5.0f; x += 0.5f)
+			{
+				glm::vec4 color = {(x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 1.0f };
+				Hazel::Renderer2D::DrawQuad({ x, y, 0.025f }, { 0.45f, 0.45f }, m_ChernoTexture, 1.0f, color);
+			}
+		}
+		
+		Hazel::Renderer2D::DrawQuad({ 1.0f, 0.0f, 0.03f }, { 3.0f, 3.0f }, m_ChernoTexture, 1.0f, m_CustomColor);
+		Hazel::Renderer2D::DrawQuad({ 1.5f, 1.0f, 0.04f }, { 2.5f, 2.5f }, m_RandTexture, 1.0f, m_CustomColor);
+
+
+		/*
 		static float rotation = 0.0f;
 		rotation += ts * 500;
 		//HZ_CORE_INFO("Frame with ts of {0}", ts.GetMilliseconds());
@@ -75,17 +95,10 @@ void Sandbox2D::OnUpdate(Hazel::Timestep ts)
 		Hazel::Renderer2D::DrawRotatedQuad({ -1.0f, 0.0f, 0.1f }, { 0.8f, 0.8f }, glm::radians(-rotation), { 0.1f, 0.2f, 0.3f, 1.0f });
 
 		Hazel::Renderer2D::DrawQuad({ 0.5f, -0.5f }, { 0.5f, 0.75f }, { 0.2f, 0.3f, 0.8f, 1.0f });
-		Hazel::Renderer2D::DrawQuad({ 3.0f, 3.0f, 0.1f }, { 1.0f, 1.0f }, m_RandTexture, 1.0f, m_CustomColor);
+		Hazel::Renderer2D::DrawQuad({ 3.0f, 3.0f, 0.1f }, { 1.0f, 1.0f }, m_RandTexture);
 		Hazel::Renderer2D::DrawQuad({ -3.0f, -3.0f, 0.1f }, { 1.0f, 1.0f }, m_CustomColor);
 
-		for (float y = -5.0f; y < 5.0f; y += 0.5f)
-		{
-			for (float x = -5.0f; x < 5.0f; x += 0.5f)
-			{
-				glm::vec4 color = {(x + 5.0f) / 10.0f, 0.4f, (y + 5.0f) / 10.0f, 1.0f };
-				Hazel::Renderer2D::DrawQuad({ x, y }, { 0.45f, 0.45f }, color);
-			}
-		}
+		*/
 		Hazel::Renderer2D::EndScene();
 	}
 

@@ -29,7 +29,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "KeyPressedEvent: " << m_KeyCode << " (" << m_RepeatCount << "repeats)";
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 
@@ -47,7 +49,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "KeyReleasedEvent: " << m_KeyCode;
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 
@@ -63,7 +67,9 @@ namespace Hazel {
 		std::string ToString() const override
 		{
 			std::stringstream ss;
+			#if HZ_LOG_EVENTS_TO_CONSOLE
 			ss << "KeyTypedEvent: " << m_KeyCode;
+			#endif // HZ_LOG_EVENTS_TO_CONSOLE
 			return ss.str();
 		}
 
