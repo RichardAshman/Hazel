@@ -30,20 +30,6 @@ namespace Hazel {
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
 		m_SquareEntity = square;
 
-		//Entity square2 = m_ActiveScene->CreateEntity("Square2");
-		//square2.AddComponent<SpriteRendererComponent>(glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-		//auto& s2Transform = square2.GetComponent<TransformComponent>().Transform;
-		//s2Transform = glm::translate(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
-		//s2Transform = glm::scale(s2Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
-		//m_Square2 = square2;
-
-		//Entity square3 = m_ActiveScene->CreateEntity("Square3");
-		//square3.AddComponent<SpriteRendererComponent>(m_RandTexture, glm::vec4{ 1.0f, 0.0f, 0.0f, 1.0f });
-		//auto& s3Transform = square3.GetComponent<TransformComponent>().Transform;
-		//s2Transform = glm::translate(s3Transform, glm::vec3{ 0.5f,-0.8f, 0.0f });
-		//s2Transform = glm::scale(s3Transform, glm::vec3{ 0.5f,0.8f, 0.0f });
-		//m_Square3 = square3;
-
 		m_CameraEntity = m_ActiveScene->CreateEntity("Camera Entity");
 		m_CameraEntity.AddComponent<CameraComponent>();
 
@@ -51,6 +37,50 @@ namespace Hazel {
 		auto & cc = m_SecondCamera.AddComponent<CameraComponent>();
 		cc.Primary = false;
 		//cc.FixedAspectRatio = true;
+
+
+		// Native scripting example. 
+		//TODO: to be moved later
+		class CameraController : public ScriptableEntity
+		{
+		public:
+			void OnCreate()
+			{
+				//GetComponent<TransformComponent>();
+				//std::cout << "CameraController->OnCreate!" << std::endl;
+			}
+			void OnDestroy()
+			{
+
+			}
+			void OnUpdate(Timestep ts)
+			{
+				//std::cout << "CameraController->OnUpdate! Timestep" << ts << std::endl;
+
+				auto& transform = GetComponent<TransformComponent>().Transform;
+				float speed = 5.0f;
+				if (Input::IsKeyPressed(KeyCode::A))
+				{
+					transform[3][0] -= speed * ts;
+				}
+				if (Input::IsKeyPressed(KeyCode::D))
+				{
+					transform[3][0] += speed * ts;
+				}
+				if (Input::IsKeyPressed(KeyCode::W))
+				{
+					transform[3][1] += speed * ts;
+				}
+				if (Input::IsKeyPressed(KeyCode::S))
+				{
+					transform[3][1] -= speed * ts;
+				}
+			}
+
+		};
+
+		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
+
 	}
 
 	void EditorLayer::OnDetach()

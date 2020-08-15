@@ -27,6 +27,29 @@ namespace Hazel
 	}
 	void Scene::OnUpdate(Timestep ts)
 	{
+		// Update scripts
+		{
+			m_Registry.view<NativeScriptComponent>().each([=](auto entity, auto& nsc)
+			{
+				// TODO: might not need this if(!nsc.Instance) when there is a concept of run time.
+				if (!nsc.Instance)
+				{
+					nsc.InstantiateFunction();
+					nsc.Instance->m_Entity = { entity, this };
+
+					if (nsc.OnCreateFunction)
+					{
+						nsc.OnCreateFunction(nsc.Instance);
+					}
+				}
+
+				if (nsc.OnCreateFunction)
+				{
+					nsc.OnUpdateFunction(nsc.Instance, ts);
+				}
+			});
+		}
+
 		// Render 2D
 		Camera* mainCamera = nullptr;
 		glm::mat4* cameraTransform = nullptr;
