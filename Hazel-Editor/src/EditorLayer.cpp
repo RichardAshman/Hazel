@@ -46,12 +46,13 @@ namespace Hazel {
 		public:
 			void OnCreate()
 			{
-				//GetComponent<TransformComponent>();
-				//std::cout << "CameraController->OnCreate!" << std::endl;
+				// Change camera transform to a random x pos
+				//auto& transform = GetComponent<TransformComponent>().Transform;
+				//transform[3][0] = rand() % 10 - 5.0f;
 			}
 			void OnDestroy()
 			{
-
+				// TODO: currently a memory leak?
 			}
 			void OnUpdate(Timestep ts)
 			{
