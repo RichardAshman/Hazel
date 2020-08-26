@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Hazel.h"
+#include "Panels/SceneHierarchyPanel.h"
 
 namespace Hazel {
 
@@ -46,5 +47,9 @@ namespace Hazel {
 			float Time;
 		};
 		std::vector<ProfileResult> m_ProfileResults;
+
+
+		// Panels
+		SceneHierarchyPanel m_SceneHierarchyPanel;
 	};
 }
