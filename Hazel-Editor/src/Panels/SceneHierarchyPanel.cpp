@@ -80,8 +80,8 @@ namespace Hazel
 				ImGui::DragFloat3("Position", glm::value_ptr(transform[3]), 0.1f);
 				ImGui::TreePop();
 			}
-
 		}
+
 		if (entity.HasComponent<CameraComponent>())
 		{
 			if (ImGui::TreeNodeEx((void*)typeid(CameraComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "Camera Component"))
@@ -113,22 +113,22 @@ namespace Hazel
 				}
 				if (camera.GetProjectionType() ==  SceneCamera::ProjectionType::Perspective)
 				{
-					float orthoVerticalFOV = glm::degrees(camera.GetPerspectiveVerticalFOV());
-					if (ImGui::DragFloat("Vertical FOV", &orthoVerticalFOV))
+					float perspectiveVerticalFov = glm::degrees(camera.GetPerspectiveVerticalFOV());
+					if (ImGui::DragFloat("Vertical FOV", &perspectiveVerticalFov))
 					{
-						camera.SetPerspectiveVerticalFOV(glm::radians(orthoVerticalFOV));
+						camera.SetPerspectiveVerticalFOV(glm::radians(perspectiveVerticalFov));
 					}
 
-					float orthoNearClip = camera.GetPerspectiveNearClip();
-					if (ImGui::DragFloat("Near Clip", &orthoNearClip))
+					float perspectiveNear = camera.GetPerspectiveNearClip();
+					if (ImGui::DragFloat("Near Clip", &perspectiveNear))
 					{
-						camera.SetPerspectiveNearClip(orthoNearClip);
+						camera.SetPerspectiveNearClip(perspectiveNear);
 					}
 
-					float orthoFarClip = camera.GetPerspectiveFarClip();
-					if (ImGui::DragFloat("Far Clip", &orthoFarClip))
+					float perspectiveFar = camera.GetPerspectiveFarClip();
+					if (ImGui::DragFloat("Far Clip", &perspectiveFar))
 					{
-						camera.SetPerspectiveFarClip(orthoFarClip);
+						camera.SetPerspectiveFarClip(perspectiveFar);
 					}
 				}
 				else if (camera.GetProjectionType() == SceneCamera::ProjectionType::Orthographic)
@@ -157,6 +157,17 @@ namespace Hazel
 				ImGui::TreePop();
 			}
 
+		}
+
+		if (entity.HasComponent<SpriteRendererComponent>())
+		{
+			if (ImGui::TreeNodeEx((void*)typeid(SpriteRendererComponent).hash_code(), ImGuiTreeNodeFlags_DefaultOpen, "SpriteRenderer Component"))
+			{
+				auto& spriteRendererComponent = entity.GetComponent<SpriteRendererComponent>();
+
+				ImGui::ColorEdit4("Color", glm::value_ptr(spriteRendererComponent.Color));
+				ImGui::TreePop();
+			}
 		}
 	}
 }
