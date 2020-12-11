@@ -6,6 +6,8 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtc/type_ptr.hpp>
 
+#include "Hazel/Scene/SceneSerializer.h"
+
 namespace Hazel {
 
 	EditorLayer::EditorLayer()
@@ -25,6 +27,8 @@ namespace Hazel {
 		m_Framebuffer = Framebuffer::Create(fbSpec);
 
 		m_ActiveScene = CreateRef<Scene>();
+
+
 
 		Entity square = m_ActiveScene->CreateEntity("Square");
 		square.AddComponent<SpriteRendererComponent>(glm::vec4{ 0.0f, 1.0f, 0.0f, 1.0f });
@@ -88,8 +92,10 @@ namespace Hazel {
 		m_CameraEntity.AddComponent<NativeScriptComponent>().Bind<CameraController>();
 
 
-
 		m_SceneHierarchyPanel.SetContext(m_ActiveScene);
+
+
+
 	}
 
 	void EditorLayer::OnDetach()
@@ -222,6 +228,21 @@ namespace Hazel {
 				//if (ImGui::MenuItem("Flag: PassthruCentralNode", "", (dockspace_flags & ImGuiDockNodeFlags_PassthruCentralNode) != 0))     dockspace_flags ^= ImGuiDockNodeFlags_PassthruCentralNode;
 				//if (ImGui::MenuItem("Flag: AutoHideTabBar", "", (dockspace_flags & ImGuiDockNodeFlags_AutoHideTabBar) != 0))          dockspace_flags ^= ImGuiDockNodeFlags_AutoHideTabBar;
 				//ImGui::Separator();
+
+
+				if (ImGui::MenuItem("Serialize"))
+				{
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Serialize("assets/scenes/Example.hazel");
+				}
+				if (ImGui::MenuItem("Deserialize"))
+				{
+					// TODO create new scene rather than just adding to the current scene. Will have some problems with the camera.
+					SceneSerializer serializer(m_ActiveScene);
+					serializer.Deserialize("assets/scenes/Example.hazel");
+				}
+
+
 				if (ImGui::MenuItem("Exit", NULL, false))
 				{
 					Application::Get().Close();

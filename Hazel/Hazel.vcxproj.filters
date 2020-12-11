@@ -66,6 +66,9 @@
     <ClInclude Include="src\Hazel\Core\Application.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
+    <ClInclude Include="src\Hazel\Core\Assert.h">
+      <Filter>src\Hazel\Core</Filter>
+    </ClInclude>
     <ClInclude Include="src\Hazel\Core\Base.h">
       <Filter>src\Hazel\Core</Filter>
     </ClInclude>
@@ -163,6 +166,9 @@
       <Filter>src\Hazel\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Scene\SceneCamera.h">
+      <Filter>src\Hazel\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Hazel\Scene\SceneSerializer.h">
       <Filter>src\Hazel\Scene</Filter>
     </ClInclude>
     <ClInclude Include="src\Hazel\Scene\ScriptableEntity.h">
@@ -1341,7 +1347,6 @@
     <ClInclude Include="vendor\stb_image\stb_image2.23.h">
       <Filter>vendor\stb_image</Filter>
     </ClInclude>
-    <ClInclude Include="src\Hazel\Core\Assert.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Hazel\Core\Application.cpp">
@@ -1408,6 +1413,9 @@
       <Filter>src\Hazel\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Hazel\Scene\SceneCamera.cpp">
+      <Filter>src\Hazel\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Hazel\Scene\SceneSerializer.cpp">
       <Filter>src\Hazel\Scene</Filter>
     </ClCompile>
     <ClCompile Include="src\Platform\OpenGL\OpenGLBuffer.cpp">

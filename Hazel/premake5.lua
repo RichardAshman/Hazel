@@ -1,5 +1,5 @@
-project "Hazel-Editor"
-	kind "ConsoleApp"
+project "Hazel"
+	kind "StaticLib"
 	language "C++"
 	cppdialect "C++17"
 	staticruntime "on"
@@ -7,28 +7,53 @@ project "Hazel-Editor"
 	targetdir ("%{wks.location}/bin/" .. outputdir .. "/%{prj.name}")
 	objdir ("%{wks.location}/bin-int/" .. outputdir .. "/%{prj.name}")
 
+	pchheader "hzpch.h"
+	pchsource "src/hzpch.cpp"
+
 	files
 	{
 		"src/**.h",
-		"src/**.cpp"
+		"src/**.cpp",
+		"vendor/stb_image/**.h",
+		"vendor/stb_image/**.cpp",
+		"vendor/glm/glm/**.hpp",
+		"vendor/glm/glm/**.inl",
+	}
+
+	defines
+	{
+		"_CRT_SECURE_NO_WARNINGS",
+		"GLFW_INCLUDE_NONE"
 	}
 
 	includedirs
 	{
-		"%{wks.location}/Hazel/vendor/spdlog/include",
-		"%{wks.location}/Hazel/src",
-		"%{wks.location}/Hazel/vendor",
+		"src",
+		"vendor/spdlog/include",
+		"%{IncludeDir.GLFW}",
+		"%{IncludeDir.Glad}",
+		"%{IncludeDir.ImGui}",
 		"%{IncludeDir.glm}",
-		"%{IncludeDir.entt}"
+		"%{IncludeDir.stb_image}",
+		"%{IncludeDir.entt}",
+		"%{IncludeDir.yaml_cpp}"
 	}
 
 	links
 	{
-		"Hazel"
+		"GLFW",
+		"Glad",
+		"ImGui",
+		"yaml-cpp",
+		"opengl32.lib"
 	}
 
 	filter "system:windows"
 		systemversion "latest"
+
+		defines
+		{
+		}
 
 	filter "configurations:Debug"
 		defines "HZ_DEBUG"

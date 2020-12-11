@@ -1,4 +1,4 @@
-project "Hazel-Editor"
+project "Sandbox"
 	kind "ConsoleApp"
 	language "C++"
 	cppdialect "C++17"

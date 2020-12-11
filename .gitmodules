@@ -5,7 +5,7 @@
     ignore = dirty
 [submodule "Hazel/vendor/GLFW"]
 	path = Hazel/vendor/GLFW
-	url = https://github.com/RichardAshman/glfw
+	url = ../../TheCherno/glfw.git
 	branch = master
     ignore = dirty
 [submodule "Hazel/vendor/imgui"]
