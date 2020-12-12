@@ -2,27 +2,27 @@ Scene: Untitled Scene
 Entities:
   - Entity: 12837192831273
     TagComponent:
-      Tag: Canera B
+      Tag: Green Square
     TransformComponent:
-      Translation: [0, 0, 0]
+      Translation: [-1.89999998, -1.60000002, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
-    CameraComponent:
-      Camera:
-        ProjectionType: 1
-        PerspectiveFOV: 0.785398185
-        PerspectiveNear: 0.00999999978
-        PerspectiveFar: 1000
-        OrthographicSize: 10
-        OrthographicNear: -1
-        OrthographicFar: 1
-      Primary: false
-      FixedAspectRatio: false
+    SpriteRendererComponent:
+      Color: [0.0798629075, 0.536679506, 0, 1]
+  - Entity: 12837192831273
+    TagComponent:
+      Tag: Yellow Square
+    TransformComponent:
+      Translation: [-2.20000005, 2.0999999, 0]
+      Rotation: [0, 0, 0]
+      Scale: [1, 1, 1]
+    SpriteRendererComponent:
+      Color: [0.927684426, 0.945945919, 0, 1]
   - Entity: 12837192831273
     TagComponent:
       Tag: Camera A
     TransformComponent:
-      Translation: [-4, 0, 0]
+      Translation: [-3.7539978, -0.663661957, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     CameraComponent:
@@ -49,8 +49,8 @@ Entities:
     TagComponent:
       Tag: Square
     TransformComponent:
-      Translation: [-4.19999981, 0, 0]
+      Translation: [-4.80000019, 0.400000006, 0]
       Rotation: [0, 0, 0]
       Scale: [1, 1, 1]
     SpriteRendererComponent:
-      Color: [0, 1, 0, 1]
+      Color: [0.999989986, 1, 0.999989986, 1]
