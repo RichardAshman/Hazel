@@ -17,3 +17,6 @@
 	url = https://github.com/g-truc/glm
 	branch = master
     ignore = dirty
+[submodule "Hazel/vendor/ImGuizmo"]
+	path = Hazel/vendor/ImGuizmo
+	url = https://github.com/RichardAshman/ImGuizmo
